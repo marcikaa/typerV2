@@ -17,67 +17,68 @@ import java.util.ResourceBundle;
 
 public class MainMenuController implements Initializable {
     @FXML
-    AnchorPane rootPane;
-
+            AnchorPane rootPane;
+    
     @FXML
-    AnchorPane mainPane;
-
+            AnchorPane mainPane;
+    
     @FXML
-    AnchorPane subPane;
-
+            AnchorPane subPane;
+    
     @FXML
-    Button btn_NewGame;
-
+            Button btn_NewGame;
+    
     @FXML
-    Button btn_Exit;
-
+            Button btn_Exit;
+    
     @FXML
-    Button btn_Scores;
-
+            Button btn_Scores;
+    
     @FXML
-    TextField textfield_name;
-
+            TextField textfield_name;
+    
     public String nameOfPlayer = "Unknown Player";
-
+    
     public String getNameOfPlayer() {
         return nameOfPlayer;
     }
-
+    
+    
+    /**
+     * Új játék kezdésésének előkészítése.
+     * @param mouseEvent Kattintásra betölti az új Scene-t
+     */
+    
     public void action_NewGame(MouseEvent mouseEvent) {
-        AnchorPane root;
         
-        try{
-           root = FXMLLoader.load(getClass().getResource("/com/mrm/typer/view/Game.fxml"));
-           rootPane.getChildren().clear();
-           rootPane.getChildren().addAll(root);
-        }catch(IOException e){
-        //TODO
-        }
-        
-       // FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("/com/mrm/typer/view/Game.fxml"));
-        //Parent root = null;
-        /*try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/mrm/typer/view/Game.fxml"));
+        Parent root = null;
+        try {
             root = (Parent) loader.load();
+            GameController gameController = loader.getController();
             
-
             if (textfield_name.getText().isEmpty())
             {
                 textfield_name.setText("Unknown player");
             }
-            GameController gameController = loader.getController();
+            
             gameController.setPlayerName(textfield_name.getText());
-
-
-           rootPane.getChildren().clear();
+            
+            
+            rootPane.getChildren().clear();
             rootPane.getChildren().add(root);
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
-
+    
+    /**
+     * Betölti a pontlistát.
+     * @param mouseEvent betölti a pontlistát.
+     */
     public void action_Scores(MouseEvent mouseEvent) {
-
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("/com/mrm/typer/view/Score.fxml"));
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/mrm/typer/view/Score.fxml"));
         Parent root = null;
         try {
             root = (Parent) loader.load();
@@ -87,13 +88,16 @@ public class MainMenuController implements Initializable {
             e.printStackTrace();
         }
     }
-
-
+    
+    /**
+     * Kilépés az alkalmazásból
+     * @param mouseEvent Kilép az alkalmazásból
+     */
     public void action_Exit(MouseEvent mouseEvent) {
         Stage stage = (Stage) btn_Exit.getScene().getWindow();
         stage.close();
     }
-
+    
     public void initialize(URL location, ResourceBundle resources) {
     }
 }

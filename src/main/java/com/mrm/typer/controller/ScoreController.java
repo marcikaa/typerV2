@@ -26,7 +26,7 @@ public class ScoreController implements Initializable {
     TableView table;
     DB db = new DB();
     public void backToMain(ActionEvent actionEvent) {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("/com/mrm/typer/view/MainMenu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/mrm/typer/view/MainMenu.fxml"));
         Parent root = null;
         try {
             root = (Parent) loader.load();
