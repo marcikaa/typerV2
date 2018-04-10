@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Tue Apr 10 11:05:47 CEST 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.1.0 - (1808820): instance a816c00e-0162-aecd-d3f6-000006a68240 
+on database directory /home/marcikaa/NetBeansProjects/typer/target/typoshooterDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@1b9e1916 
+Loaded from file:/home/marcikaa/NetBeansProjects/typer/target/Typer-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+java.vendor=Oracle Corporation
+java.runtime.version=9.0.4+11
+user.dir=/home/marcikaa/NetBeansProjects/typer/target
+os.name=Linux
+os.arch=amd64
+os.version=4.13.0-32-generic
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
