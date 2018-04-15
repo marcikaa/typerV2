@@ -19,12 +19,18 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Ez az osztály felelős mindenért ami a Scores menüben található.
+ * @author marcikaa
+ */
 public class ScoreController implements Initializable {
     @FXML
     AnchorPane anchorPane;
     @FXML
     TableView table;
-    DB db = new DB();
+//    DB db = new DB();
+    
+    
     public void backToMain(ActionEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/mrm/typer/view/MainMenu.fxml"));
         Parent root = null;
@@ -48,7 +54,8 @@ public class ScoreController implements Initializable {
 
     private ObservableList<Result> results =
             FXCollections.observableArrayList(
-                    new Result("Marcikaa","30")
+                    new Result("Marcikaa","30"),
+                    new Result("Th","111")
             );
 
     @Override
@@ -66,9 +73,9 @@ public class ScoreController implements Initializable {
         scoreCol.setCellValueFactory(new PropertyValueFactory<Result, Integer>("score"));
 
 
-        for (Result result : db.getAllResults())
+//        for (Result result : db.getAllResults())
         {
-            results.add(result);
+//            results.add(result);
         }
 
         table.getColumns().addAll(nameCol,scoreCol);

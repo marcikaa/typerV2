@@ -2,11 +2,15 @@ package com.mrm.typer.model;
 
 import java.util.Random;
 
+/**
+ * Ez az osztály felelős a random betű generálásért.
+ * @author marcikaa
+ */
 public class LetterGenerator {
 
     /**
-     * Generates a letter to press from {W,A,S,D}.
-     * @return
+     * Generál egy betűt a {W,A,S,D} közül.
+     * @return generált betűvel tér vissza
      */
     public static String generateLetterToPush() {
 

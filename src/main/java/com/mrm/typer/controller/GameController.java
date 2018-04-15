@@ -23,13 +23,25 @@ import java.io.IOException;
 
 import static com.mrm.typer.model.LetterGenerator.generateLetterToPush;
 
+/**
+ * Ez az osztály felelős mindenért, ami a játékban történik.
+ * @author marcikaa
+ */
 public class GameController extends GameLoop {
     
+    /**
+     * Visszaadja az adott scene stage-ét.
+     * @return az adott scene stage-ével tér vissza
+     */
     public Stage rootStage() {
-        return (Stage) mainPane.getScene().getWindow();
+        return (Stage) mainPane1.getScene().getWindow();
     }
     
-    public void setControl(AnchorPane mainPane) {
+    /**
+     * Kezeli a lenyomott billentyűket.
+     * @param mainPane1 Megadhatjuk hogy melyik Pane-n kezelje a billentyűket.
+     */
+    public void setControl(AnchorPane mainPane1) {
         
         rootStage().getScene().setOnKeyPressed((event) -> {
             if (!le.generatedLetterToCmps.isEmpty() && !checkStateOfGame.isGameOver) {
@@ -37,28 +49,28 @@ public class GameController extends GameLoop {
                     case W:
                         if (le.getFirst() == "w") {
                             le.remove();
-                            mainPane.getChildren().remove(0);
+                            mainPane1.getChildren().remove(0);
                             setScore(getScore() + 1);
                         } else setMissedKeyPresses(getMissedKeyPresses() + 1);
                         break;
                     case A:
                         if (le.getFirst() == "a") {
                             le.remove();
-                            mainPane.getChildren().remove(0);
+                            mainPane1.getChildren().remove(0);
                             setScore(getScore() + 1);
                         } else setMissedKeyPresses(getMissedKeyPresses() + 1);
                         break;
                     case S:
                         if (le.getFirst() == "s") {
                             le.remove();
-                            mainPane.getChildren().remove(0);
+                            mainPane1.getChildren().remove(0);
                             setScore(getScore() + 1);
                         } else setMissedKeyPresses(getMissedKeyPresses() + 1);
                         break;
                     case D:
                         if (le.getFirst() == "d") {
                             le.remove();
-                            mainPane.getChildren().remove(0);
+                            mainPane1.getChildren().remove(0);
                             setScore(getScore() + 1);
                         } else setMissedKeyPresses(getMissedKeyPresses() + 1);
                         break;
@@ -73,7 +85,7 @@ public class GameController extends GameLoop {
     ListOfEnemies le = new ListOfEnemies();
     
     CheckStateOfGame checkStateOfGame = new CheckStateOfGame();
-    DB db = new DB();
+//    DB db = new DB();
     //FXML-begin
     @FXML
             Button button_backtomain;
@@ -96,7 +108,7 @@ public class GameController extends GameLoop {
             AnchorPane anchorPane_popUp;
     
     @FXML
-            AnchorPane mainPane;
+            AnchorPane mainPane1;
     
     @FXML
             Label label_Missed;
@@ -114,10 +126,10 @@ public class GameController extends GameLoop {
     private String playerName;
     
     /**
-     * Adds an enemy with a key to press.
+     * Hozzáad egy "ellenséget", rajta egy betűvel.
      *
-     * @param letterToPush a randomly generated letter.
-     * @return a Node of a StackPane which contains an image and a letter on it
+     * @param letterToPush egy véletlen generált betű a {A,S,D,W} halmazból.
+     * @return egy node-al tér vissza, ami tartalmaz egy képet és egy random betűt
      */
     public Node spawnCmp(String letterToPush) {
         int randomMultiplier = (int) (Math.random() * 12) * 50;
@@ -144,12 +156,14 @@ public class GameController extends GameLoop {
         stackPane.setTranslateY(randomMultiplier);
         
         //Adds the stackpane to our mainpane
-        mainPane.getChildren().add(stackPane);
+        mainPane1.getChildren().add(stackPane);
         
         return stackPane;
     }
     
-    
+    /**
+     * Egy időzítő ami minden képkockában meghívódik.
+     */
     public AnimationTimer timer = new AnimationTimer() {
         @Override
         public void handle(long now) {
@@ -159,7 +173,8 @@ public class GameController extends GameLoop {
     
     
     /**
-     * A method that contains everything that needs render by the time.
+     * Minden olyan dolgot tartalmaz, amit képkockánként frissíteni kell.
+     * A timer-ben hívjuk meg.
      */
     public void onUpdate() {
         for (Node generatedCmp : le.generatedCmps) {
@@ -171,7 +186,7 @@ public class GameController extends GameLoop {
                 if (le.generatedCmps.get(0).getTranslateX() > 980) {
                     setLivesLeft(getLivesLeft() - 1);
                     le.remove();
-                    mainPane.getChildren().remove(0);
+                    mainPane1.getChildren().remove(0);
                 }
                 le.setFirstEffects();
             }
@@ -198,13 +213,13 @@ public class GameController extends GameLoop {
         
         if (checkStateOfGame.isGameOver == true) {
             Result myRes = new Result(playerName,getScore().toString());
-            db.addResult(myRes);
+//            db.addResult(myRes);
             
             
             
             checkStateOfGame.endGame(timer, getScoreString(), playerName);
             checkStateOfGame.printGameOver(label_GameOver, button_backtomain, playerName);
-            mainPane.getChildren().clear();
+            mainPane1.getChildren().clear();
         }
         
         if (getScore() % 5 == 0 && getScore() != 0)
@@ -212,18 +227,23 @@ public class GameController extends GameLoop {
             setDifficultyMultiplier(difficultyMultiplier + 0.01);
     }
     
-    
-    public void clickToAdd(ActionEvent actionEvent) {
-        mainPane.getChildren().clear();
+    /**
+     * Kattintásra elindítja a játékot.
+     * @param actionEvent 
+     */
+    public void clickToStart(ActionEvent actionEvent) {
+        mainPane1.getChildren().clear();
         timer.start();
-        setControl(mainPane);
+        setControl(mainPane1);
         
     }
     
-    private void resetGame() {
-        
-    }
-    
+
+    /**
+     * Ez a metódus betölti a főmenüt.
+     * @param actionEvent
+     * @throws IOException amennyiben nem létezik a megadott fájl.
+     */
     public void backToMain(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/mrm/typer/view/MainMenu.fxml"));
         Parent root = null;
@@ -236,11 +256,19 @@ public class GameController extends GameLoop {
         }
     }
     
-    
+    /**
+     * Ez a metódus felel a játékos nevének beállításáért.
+     * @param nm 
+     */
     public void setPlayerName(String nm) {
         playerName = nm;
     }
     
+    /**
+     * Kiírja pillanatnyi életünket, képernyőn megjelent ellenséget, pontunkat és a 
+     * mellényomott karakterek számát.
+     * @param enemy 
+     */
     private void initalizeLabels(Integer enemy) {
         label_livesLeft.setText(getLivesLeftString() + "/10");
         label_Enemies.setText(enemy.toString());

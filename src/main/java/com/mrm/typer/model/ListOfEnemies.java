@@ -7,6 +7,11 @@ import javafx.scene.effect.MotionBlur;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Ez az osztály felelős az ellenfelek tárolásáért, és 
+ * azok effektjeiért.
+ * @author marcikaa
+ */
 public class ListOfEnemies {
 
     public List<Node> generatedCmps = new ArrayList<>();
@@ -16,17 +21,20 @@ public class ListOfEnemies {
 
     }
 
+    /**
+     * Eltávolítja a 0. elemet.
+     */
     public void remove() {
         this.generatedCmps.remove(0);
         this.generatedLetterToCmps.remove(0);
     }
 
+    /**
+     * Visszaadja az első ellenfélen lévő betűt.
+     * @return az első ellenfélen lévő betűvel
+     */
     public String getFirst() {
         return this.generatedLetterToCmps.get(0);
-    }
-
-    public boolean isRightKey(){
-return false;
     }
 
     MotionBlur motionBlur = new MotionBlur();
@@ -34,7 +42,9 @@ return false;
     MotionBlur motionBlurFirst = new MotionBlur();
     ColorAdjust colorAdjustFirst = new ColorAdjust();
 
-
+    /**
+     * Beállítja az első ellenfél színét és annak elmosását.
+     */
     public void setFirstEffects() {
         motionBlurFirst.setRadius(0);
         motionBlurFirst.setAngle(0);
@@ -44,6 +54,9 @@ return false;
         this.generatedCmps.get(0).setEffect(motionBlurFirst);
     }
 
+        /**
+     * Beállítja a többi ellenfél színét és azok elmosását.
+     */
     public void setEffects(int i){
         motionBlur.setRadius(0.1 * i);
         motionBlur.setAngle(-2.0);

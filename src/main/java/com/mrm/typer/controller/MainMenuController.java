@@ -15,6 +15,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Ez az osztály felelős a főmenüben való navigálásért.
+ * @author marcikaa
+ */
 public class MainMenuController implements Initializable {
     @FXML
             AnchorPane rootPane;
@@ -39,9 +43,10 @@ public class MainMenuController implements Initializable {
     
     public String nameOfPlayer = "Unknown Player";
     
-    public String getNameOfPlayer() {
-        return nameOfPlayer;
-    }
+    
+//    public String getNameOfPlayer() {
+//        return nameOfPlayer;
+//    }
     
     
     /**

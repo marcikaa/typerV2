@@ -1,0 +1,37 @@
+.button {
+    -fx-font-weight: bold;
+    -fx-background-color: #CCFF99;
+    
+}
+
+.button:hover {
+    -fx-background-color: #CCFFFF;
+    -fx-scale-y: 1.051;
+    -fx-border-color:black;
+    -fx-border-width: 0 1 1 0;
+}
+
+#mainPane{
+    -fx-background-image: url("https://i.pinimg.com/originals/09/36/a6/0936a65e8a3d9ab7a272b47c5f73a806.jpg");
+    -fx-background-repeat: stretch;   
+    -fx-background-size: 1000 700;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0); 
+}
+
+
+.text-field {
+    -fx-background-color: #a9a9a9 , #CCFFFF , #CCFFFF;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+}
+
+.text-field:focused {
+    -fx-background-color: #a9a9a9 , #CCFFFA , #CCFFFA;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+}
+
+#label_name{
+    -fx-font-weight: bold;
+    -fx-text-fill: #CCFFFF;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}

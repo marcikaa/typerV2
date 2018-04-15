@@ -13,16 +13,16 @@
                 <Button fx:id="btn_NewGame" layoutX="454.0" layoutY="288.0" mnemonicParsing="false" onMouseClicked="#action_NewGame" text="New Game" />
                 <Button fx:id="btn_Scores" layoutX="466.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#action_Scores" text="Scores" />
                 <Button fx:id="btn_Exit" layoutX="474.0" layoutY="352.0" mnemonicParsing="false" onMouseClicked="#action_Exit" text="Exit" />
-            <Label layoutX="277.0" layoutY="177.0" text="Name:">
-               <font>
-                  <Font size="34.0" />
-               </font>
-            </Label>
-            <TextField fx:id="textfield_name" layoutX="385.0" layoutY="165.0" promptText="yourname">
-               <font>
-                  <Font size="34.0" />
-               </font>
-            </TextField>
+                <Label fx:id="label_name" layoutX="277.0" layoutY="177.0" text="Name:">
+                    <font>
+                        <Font size="34.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="textfield_name" layoutX="385.0" layoutY="165.0" promptText="yourname">
+                    <font>
+                        <Font size="34.0" />
+                    </font>
+                </TextField>
             </children>
         </AnchorPane>
         <AnchorPane fx:id="subPane" layoutX="6.0" layoutY="600.0" prefHeight="100.0" prefWidth="1000.0">

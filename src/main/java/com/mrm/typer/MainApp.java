@@ -13,9 +13,13 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/com/mrm/typer/view/MainMenu.fxml"));
+        root.setId(STYLESHEET_MODENA);
         primaryStage.setTitle("TypoShooter");
         primaryStage.setResizable(false);
-        primaryStage.setScene(new Scene(root, 1000, 800));
+//        primaryStage.setScene(new Scene(root, 1000, 800));
+        Scene scene = new Scene(root, 1000, 700);
+        scene.getStylesheets().add("/styles/mm.css");
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
