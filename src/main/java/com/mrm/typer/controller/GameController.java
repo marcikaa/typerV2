@@ -22,12 +22,16 @@ import com.mrm.typer.model.ListOfEnemies;
 import java.io.IOException;
 
 import static com.mrm.typer.model.LetterGenerator.generateLetterToPush;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Ez az osztály felelős mindenért, ami a játékban történik.
  * @author marcikaa
  */
 public class GameController extends GameLoop {
+    
+    private static Logger logger = LoggerFactory.getLogger(GameController.class);
     
     /**
      * Visszaadja az adott scene stage-ét.
@@ -44,13 +48,14 @@ public class GameController extends GameLoop {
     public void setControl(AnchorPane mainPane1) {
         
         rootStage().getScene().setOnKeyPressed((event) -> {
-            if (!le.generatedLetterToCmps.isEmpty() && !checkStateOfGame.isGameOver) {
+            if (!checkStateOfGame.isGameOver) {
                 switch (event.getCode()) {
                     case W:
                         if (le.getFirst() == "w") {
                             le.remove();
                             mainPane1.getChildren().remove(0);
                             setScore(getScore() + 1);
+//                            logger.trace("W pressed");
                         } else setMissedKeyPresses(getMissedKeyPresses() + 1);
                         break;
                     case A:
@@ -58,6 +63,7 @@ public class GameController extends GameLoop {
                             le.remove();
                             mainPane1.getChildren().remove(0);
                             setScore(getScore() + 1);
+//                            logger.trace("A pressed");
                         } else setMissedKeyPresses(getMissedKeyPresses() + 1);
                         break;
                     case S:
@@ -65,6 +71,7 @@ public class GameController extends GameLoop {
                             le.remove();
                             mainPane1.getChildren().remove(0);
                             setScore(getScore() + 1);
+//                            logger.trace("S pressed");
                         } else setMissedKeyPresses(getMissedKeyPresses() + 1);
                         break;
                     case D:
@@ -72,11 +79,13 @@ public class GameController extends GameLoop {
                             le.remove();
                             mainPane1.getChildren().remove(0);
                             setScore(getScore() + 1);
+//                            logger.trace("D pressed");
                         } else setMissedKeyPresses(getMissedKeyPresses() + 1);
                         break;
                 }
-                
+                logger.trace("{} is pressed", event.getCode());
             }
+            
         });
         
     }
@@ -128,7 +137,7 @@ public class GameController extends GameLoop {
     /**
      * Hozzáad egy "ellenséget", rajta egy betűvel.
      *
-     * @param letterToPush egy véletlen generált betű a {A,S,D,W} halmazból.
+     * @param letterToPush  {@code Lettergenerator} generál egy véletlen betűt a {W,A,S,D} halmazból.
      * @return egy node-al tér vissza, ami tartalmaz egy képet és egy random betűt
      */
     public Node spawnCmp(String letterToPush) {
@@ -199,13 +208,14 @@ public class GameController extends GameLoop {
             if (Math.random() < 0.23) {
                 String actualLetter = generateLetterToPush();
                 le.generatedCmps.add(spawnCmp(actualLetter));
+                logger.trace("Enemy added with letter {}", actualLetter);
                 le.generatedLetterToCmps.add(actualLetter);
                 upd = 0;
             }
         }
         //Number Of enemies
         Integer numberOfEnemies = le.generatedCmps.size();
-        String noEnemies = numberOfEnemies.toString();
+//        String noEnemies = numberOfEnemies.toString();
         
         upd++;
         initalizeLabels(numberOfEnemies);
@@ -235,6 +245,7 @@ public class GameController extends GameLoop {
         mainPane1.getChildren().clear();
         timer.start();
         setControl(mainPane1);
+        logger.info("Game started");
         
     }
     
@@ -251,8 +262,10 @@ public class GameController extends GameLoop {
             root = (Parent) loader.load();
             rootPane.getChildren().clear();
             rootPane.getChildren().add(root);
+            logger.info("MainMenu.fxml loaded");
         } catch (IOException e) {
             e.printStackTrace();
+            logger.error("Can't load MainMenu.fxml");
         }
     }
     

@@ -1,6 +1,6 @@
 package com.mrm.typer.controller;
 
-import com.mrm.typer.model.DB;
+//import com.mrm.typer.model.DB;
 import com.mrm.typer.model.Result;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

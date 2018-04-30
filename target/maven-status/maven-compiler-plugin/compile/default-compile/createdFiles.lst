@@ -1,5 +1,4 @@
 com\mrm\typer\controller\ScoreController.class
-com\mrm\typer\model\DB.class
 com\mrm\typer\controller\MainMenuController.class
 com\mrm\typer\model\GameLoop.class
 com\mrm\typer\controller\GameController.class

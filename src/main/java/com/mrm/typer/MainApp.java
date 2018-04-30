@@ -5,11 +5,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import javafx.stage.Stage;
 
+/**
+ * Ez az osztály felelős az alkalmazás elindításáért, és annak tartalmának a betöltéséért.
+ * @author marcikaa
+ */
 public class MainApp extends Application {
 
 
+    private static Logger logger = LoggerFactory.getLogger(MainApp.class);
+    
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/com/mrm/typer/view/MainMenu.fxml"));
@@ -21,6 +29,7 @@ public class MainApp extends Application {
         scene.getStylesheets().add("/styles/mm.css");
         primaryStage.setScene(scene);
         primaryStage.show();
+        logger.info("The program is running");
     }
 
 

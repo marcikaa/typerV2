@@ -11,9 +11,9 @@
 
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mrm.typer.controller.GameController">
     <children>
-        <AnchorPane fx:id="mainPane" prefHeight="600.0" prefWidth="1000.0">
+        <AnchorPane fx:id="mainPane1" prefHeight="600.0" prefWidth="1000.0">
          <children>
-            <Button fx:id="btn_addCmp" layoutX="464.0" layoutY="288.0" mnemonicParsing="false" onAction="#clickToAdd" text="I'm ready!!" />
+            <Button fx:id="btn_addCmp" layoutX="464.0" layoutY="288.0" mnemonicParsing="false" onAction="#clickToStart" text="I'm ready!!" />
             <AnchorPane fx:id="AnchorPane_popUp" layoutX="319.0" layoutY="203.0" prefHeight="200.0" prefWidth="362.0" visible="false">
                <children>
                   <Label layoutX="110.0" layoutY="50.0" prefHeight="68.0" prefWidth="150.0" text="Game Over!" textAlignment="CENTER" wrapText="true">
@@ -74,6 +74,6 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <Button prefHeight="400" prefWidth="400" fx:id="button_backtomain" layoutX="440.0" layoutY="184.0" mnemonicParsing="false" onAction="#backToMain" text="Back to mainmenu" visible="false" />
+      <Button fx:id="button_backtomain" layoutX="212.0" layoutY="459.0" mnemonicParsing="false" onAction="#backToMain" prefHeight="30.0" prefWidth="628.0" text="Back to mainmenu" visible="false" />
     </children>
 </AnchorPane>
