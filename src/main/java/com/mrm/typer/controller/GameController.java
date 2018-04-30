@@ -146,7 +146,7 @@ public class GameController extends GameLoop {
         final Canvas canvas = new Canvas(50, 50);
         
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFill(Color.rgb(100, 100, 100));
+        gc.setFill(Color.rgb(0, 100, 0));
         
         Image image = new Image(getClass().getResource("/textures/cmp_alive.png")
                 .toString(), false);
@@ -157,7 +157,7 @@ public class GameController extends GameLoop {
         Label letter = new Label(letterToPush);
         letter.setFont(Font.font(30));
         letter.setTranslateY(letter.getTranslateX() - 7);
-        letter.setTextFill(Color.PINK);
+        letter.setTextFill(Color.rgb(0, 255, 0));
         
         //Adds everything to a pane
         StackPane stackPane = new StackPane();

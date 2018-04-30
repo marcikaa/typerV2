@@ -60,7 +60,7 @@ public class ListOfEnemies {
     public void setEffects(int i){
         motionBlur.setRadius(0.1 * i);
         motionBlur.setAngle(-2.0);
-        colorAdjust.setSaturation(-0.3 * i);
+        colorAdjust.setSaturation(-0.6 * i);
         this.generatedCmps.get(i).setEffect(motionBlur);
         motionBlur.setInput(colorAdjust);
         this.generatedCmps.get(i).setEffect(motionBlur);

@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
  */
 public class ScoreController implements Initializable {
     @FXML
-    AnchorPane anchorPane;
+    AnchorPane anchorPane1;
     @FXML
     TableView table;
 //    DB db = new DB();
@@ -36,8 +36,8 @@ public class ScoreController implements Initializable {
         Parent root = null;
         try {
             root = (Parent) loader.load();
-            anchorPane.getChildren().clear();
-            anchorPane.getChildren().add(root);
+            anchorPane1.getChildren().clear();
+            anchorPane1.getChildren().add(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,14 +61,14 @@ public class ScoreController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         TableColumn nameCol  = new TableColumn("Name");
-        nameCol.setMinWidth(325);
-        nameCol.setMaxWidth(325);
+        nameCol.setMinWidth(320);
+        nameCol.setMaxWidth(320);
         nameCol.setCellFactory(TextFieldTableCell.forTableColumn());
         nameCol.setCellValueFactory(new PropertyValueFactory<Result, String>("name"));
 
         TableColumn scoreCol  = new TableColumn("Score");
-        scoreCol.setMinWidth(325);
-        scoreCol.setMaxWidth(325);
+        scoreCol.setMinWidth(320);
+        scoreCol.setMaxWidth(320);
         scoreCol.setCellFactory(TextFieldTableCell.forTableColumn());
         scoreCol.setCellValueFactory(new PropertyValueFactory<Result, Integer>("score"));
 
