@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mrm.typer.controller.MainMenuController">
+<AnchorPane fx:id="rootPane" maxHeight="800.0" maxWidth="1000.0" minHeight="800.0" minWidth="1000.0" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mrm.typer.controller.MainMenuController">
     <children>
-        <AnchorPane fx:id="mainPane" prefHeight="600.0" prefWidth="1000.0">
+        <AnchorPane fx:id="mainPane" maxHeight="700.0" maxWidth="1000.0" minHeight="700.0" minWidth="1000.0" prefHeight="700.0" prefWidth="1000.0">
             <children>
                 <Button fx:id="btn_NewGame" layoutX="454.0" layoutY="288.0" mnemonicParsing="false" onMouseClicked="#action_NewGame" text="New Game" />
                 <Button fx:id="btn_Scores" layoutX="466.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#action_Scores" text="Scores" />
@@ -25,7 +29,7 @@
                 </TextField>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="subPane" layoutX="6.0" layoutY="600.0" prefHeight="100.0" prefWidth="1000.0">
+        <AnchorPane fx:id="subPane" layoutY="700.0" maxHeight="100.0" maxWidth="1000.0" minHeight="100.0" minWidth="1000.0" prefHeight="100.0" prefWidth="1000.0">
             <children>
 
             </children>

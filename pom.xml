@@ -36,7 +36,8 @@
         <tag>HEAD</tag>
     </scm>
 
-    <!-- https://maven.apache.org/pom.html#Licenses -->
+    <!--     https://maven.apache.org/pom.html#Licenses 
+    -->    
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -216,9 +217,22 @@
                 </executions>
             </plugin>
 
+<!--            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>1.16</version>
+                <executions>
+                    <execution>
+                        <id>first</id>
+                        <goals>
+                            <goal>update-file-header</goal>
+                        </goals>
+                        <phase>process-sources</phase>
+                    </execution>
+                </executions>
+            </plugin>
 
-
-        </plugins>
+        --></plugins>
     </build>
 
 
@@ -258,7 +272,7 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>2.17</version>
                 <configuration>
-                    <configLocation>src/main/resources/checkstyle.xml</configLocation>
+                    <configLocation>src/main/resources/checkstyle-config.xml</configLocation>
                     <!--<suppressionsLocation>checkstyle-supressions.xml</suppressionsLocation>-->
                 </configuration>
             </plugin>

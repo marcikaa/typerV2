@@ -45,10 +45,10 @@ public class GameController extends GameLoop {
      * Kezeli a lenyomott billentyűket.
      * @param mainPane1 Megadhatjuk hogy melyik Pane-n kezelje a billentyűket.
      */
-    public void setControl(AnchorPane mainPane1) {
+    public void setControl(AnchorPane mainPane1){
         
         rootStage().getScene().setOnKeyPressed((event) -> {
-            if (!checkStateOfGame.isGameOver) {
+            if ( !le.generatedCmps.isEmpty() &&!checkStateOfGame.isGameOver) {
                 switch (event.getCode()) {
                     case W:
                         if (le.getFirst() == "w") {
@@ -131,7 +131,8 @@ public class GameController extends GameLoop {
     @FXML
             Label label_livesLeft;
     //FXML-end
-    
+   
+            
     private String playerName;
     
     /**

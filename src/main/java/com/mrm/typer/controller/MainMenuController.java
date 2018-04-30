@@ -48,6 +48,7 @@ public class MainMenuController implements Initializable {
     @FXML
             TextField textfield_name;
     
+    
     public String nameOfPlayer = "Unknown Player";
     
     
@@ -62,6 +63,8 @@ public class MainMenuController implements Initializable {
      */
     
     public void action_NewGame(MouseEvent mouseEvent) {
+        
+        
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/mrm/typer/view/Game.fxml"));
         

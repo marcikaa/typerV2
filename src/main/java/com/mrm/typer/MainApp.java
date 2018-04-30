@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  * @author marcikaa
  */
 public class MainApp extends Application {
-
+    
 
     private static Logger logger = LoggerFactory.getLogger(MainApp.class);
     
@@ -25,9 +25,16 @@ public class MainApp extends Application {
         primaryStage.setTitle("TypoShooter");
         primaryStage.setResizable(false);
 //        primaryStage.setScene(new Scene(root, 1000, 800));
-        Scene scene = new Scene(root, 1000, 700);
+        Scene scene = new Scene(root, 1000, 800);
+        
         scene.getStylesheets().add("/styles/mm.css");
         primaryStage.setScene(scene);
+       
+        //enélkül alsó+jobboldali keret
+        primaryStage.setWidth(1000);
+        primaryStage.setHeight(800);
+        
+        
         primaryStage.show();
         logger.info("The program is running");
     }
