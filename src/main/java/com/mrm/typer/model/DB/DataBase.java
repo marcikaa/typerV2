@@ -169,7 +169,7 @@ public class DataBase {
 
         try {
 
-            Query query = em.createNamedQuery("SampleJPAEntity.findPlayerByID");
+            Query query = em.createNamedQuery("JPAEntity.findPlayerByID");
             query.setParameter("id", id);
             JPAEntity entity = (JPAEntity) query.getSingleResult();
 
@@ -186,13 +186,9 @@ public class DataBase {
     /**
      * Player(ek) keresése név alapján.
      *
-     * @param playerName a keresendő player(ek) neve --> (megteheted, hogy az
-     * adatbázisban egy player csak egyszer szerepeljen) (lehet default is így
-     * van, erre fejből nem emlékszem, az itt leírtak nincsenek tesztelve, csak
-     * példák) (ha nem is engedi, max dob egy exceptiont a JPA, rá fogsz
-     * jönni... :) )
+     * @param playerName a keresendő player(ek) neve
      *
-     * @return SampleJPAEntity entitás példányok, vagy {@code null}, ha nem
+     * @return JPAEntity entitás példányok, vagy {@code null}, ha nem
      * található az adatbázisban
      *
      * @throws IllegalStateException ha nincs adatbázis-kapcsolat
@@ -211,10 +207,10 @@ public class DataBase {
         }
 
         try {
-            Query query = em.createNamedQuery("SampleJPAEntity.findPlayerByName", JPAEntity.class);
+            Query query = em.createNamedQuery("JPAEntity.findPlayerByName", JPAEntity.class);
             query.setParameter("playerName", playerName);
 
-//A "...uses unchecked or unsafe operations" warning elkerülése, itt csak SampleJPAEntity lista jöhet vissza
+//A "...uses unchecked or unsafe operations" warning elkerülése, itt csak JPAEntity lista jöhet vissza
             @SuppressWarnings("unchecked")
             List<JPAEntity> entitys = query.getResultList();
 
@@ -243,7 +239,7 @@ public class DataBase {
         }
 
         try {
-            Query query = em.createNamedQuery("SampleJPAEntity.findHighScore", JPAEntity.class);
+            Query query = em.createNamedQuery("JPAEntity.findHighScore", JPAEntity.class);
 
             @SuppressWarnings("unchecked")
             List<JPAEntity> entitys = query.getResultList();
