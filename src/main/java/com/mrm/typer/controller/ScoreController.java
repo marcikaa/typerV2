@@ -17,10 +17,13 @@ package com.mrm.typer.controller;
 
 import com.mrm.typer.model.DB.DataBase;
 import com.mrm.typer.model.Result;
+import com.mrm.typer.model.entity.JPAEntity;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,6 +39,12 @@ import org.apache.derby.impl.sql.compile.DB2LengthOperatorNode;
 
 public class ScoreController implements Initializable {
 
+    
+
+    public ScoreController() {
+        
+    }
+    
     @FXML
     private AnchorPane anchorPane1;
     @FXML
@@ -68,8 +77,12 @@ public class ScoreController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
-        
+ 
+        try {
+            DataBase.getDbPeldany().getDbPeldany().findHighScore();
+        } catch (Exception ex) {
+            Logger.getLogger(ScoreController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 
