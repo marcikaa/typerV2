@@ -1,5 +1,6 @@
 package com.mrm.typer.model;
 
+import java.util.Objects;
 import javafx.beans.property.SimpleStringProperty;
 
 
@@ -8,56 +9,31 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class Result {
 
-    private final SimpleStringProperty name;
-    private final SimpleStringProperty score;
-//    private final SimpleIntegerProperty score;
-    public String getName() {
-        return name.get();
+    private final String name;
+    private final String score;
+
+    public Result(String name, String score) {
+        this.name = name;
+//        this.score = score;
+        this.score = score;
     }
 
-    public SimpleStringProperty nameProperty() {
+    public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name.set(name);
-    }
-//String
     public String getScore() {
-        return score.get();
-    }
-
-    public SimpleStringProperty scoreProperty() {
         return score;
     }
 
-    public void setScore(String score) {
-        this.score.set(score);
-    }
-
-//
-//    public int getScore() {
-//        return score.get();
-//    }
-//    public String getScoreStringa() {
-//        return score.toString();
-//    }
-//
-//    public SimpleIntegerProperty scoreProperty() {
-//        return score;
-//    }
-//
-//    public void setScore(int score) {
-//        this.score.set(score);
+//    public String getScoreString(){
+//    return score.toString();
 //    }
 
-    public Result(String name, String score) {
-        this.name = new SimpleStringProperty(name);
-        this.score = new SimpleStringProperty(score);
-    }
 
-    public String getScoreString(){
-        return score.toString();
+    @Override
+    public String toString() {
+        return "Result{" + "name=" + name + ", score=" + score + '}';
     }
 
 }

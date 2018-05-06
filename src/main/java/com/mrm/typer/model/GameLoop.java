@@ -5,7 +5,7 @@ import com.mrm.typer.controller.MainMenuController;
 public class GameLoop extends MainMenuController {
     
     //WINDOWS  difficultyMultiplier = 2, LINUX = 0.5
-    public double difficultyMultiplier = 0.5;
+    public double difficultyMultiplier = 2;
     
     public void setDifficultyMultiplier(double difficultyMultiplier) {
         this.difficultyMultiplier = difficultyMultiplier;
