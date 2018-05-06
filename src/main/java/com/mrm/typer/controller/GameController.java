@@ -1,6 +1,7 @@
 package com.mrm.typer.controller;
 
 import com.mrm.typer.model.*;
+import com.mrm.typer.model.DB.DataBase;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,33 +23,39 @@ import com.mrm.typer.model.ListOfEnemies;
 import java.io.IOException;
 
 import static com.mrm.typer.model.LetterGenerator.generateLetterToPush;
+import com.mrm.typer.model.entity.JPAEntity;
+import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Ez az osztály felelős mindenért, ami a játékban történik.
+ *
  * @author marcikaa
  */
 public class GameController extends GameLoop {
-    
+
+    private static final DataBase DB = DataBase.getDbPeldany();
     private static Logger logger = LoggerFactory.getLogger(GameController.class);
-    
+
     /**
      * Visszaadja az adott scene stage-ét.
+     *
      * @return az adott scene stage-ével tér vissza
      */
     public Stage rootStage() {
         return (Stage) mainPane1.getScene().getWindow();
     }
-    
+
     /**
      * Kezeli a lenyomott billentyűket.
+     *
      * @param mainPane1 Megadhatjuk hogy melyik Pane-n kezelje a billentyűket.
      */
-    public void setControl(AnchorPane mainPane1){
-        
+    public void setControl(AnchorPane mainPane1) {
+
         rootStage().getScene().setOnKeyPressed((event) -> {
-            if ( !le.generatedCmps.isEmpty() &&!checkStateOfGame.isGameOver) {
+            if (!le.generatedCmps.isEmpty() && !checkStateOfGame.isGameOver) {
                 switch (event.getCode()) {
                     case W:
                         if (le.getFirst() == "w") {
@@ -56,7 +63,9 @@ public class GameController extends GameLoop {
                             mainPane1.getChildren().remove(0);
                             setScore(getScore() + 1);
 //                            logger.trace("W pressed");
-                        } else setMissedKeyPresses(getMissedKeyPresses() + 1);
+                        } else {
+                            setMissedKeyPresses(getMissedKeyPresses() + 1);
+                        }
                         break;
                     case A:
                         if (le.getFirst() == "a") {
@@ -64,7 +73,9 @@ public class GameController extends GameLoop {
                             mainPane1.getChildren().remove(0);
                             setScore(getScore() + 1);
 //                            logger.trace("A pressed");
-                        } else setMissedKeyPresses(getMissedKeyPresses() + 1);
+                        } else {
+                            setMissedKeyPresses(getMissedKeyPresses() + 1);
+                        }
                         break;
                     case S:
                         if (le.getFirst() == "s") {
@@ -72,7 +83,9 @@ public class GameController extends GameLoop {
                             mainPane1.getChildren().remove(0);
                             setScore(getScore() + 1);
 //                            logger.trace("S pressed");
-                        } else setMissedKeyPresses(getMissedKeyPresses() + 1);
+                        } else {
+                            setMissedKeyPresses(getMissedKeyPresses() + 1);
+                        }
                         break;
                     case D:
                         if (le.getFirst() == "d") {
@@ -80,97 +93,96 @@ public class GameController extends GameLoop {
                             mainPane1.getChildren().remove(0);
                             setScore(getScore() + 1);
 //                            logger.trace("D pressed");
-                        } else setMissedKeyPresses(getMissedKeyPresses() + 1);
+                        } else {
+                            setMissedKeyPresses(getMissedKeyPresses() + 1);
+                        }
                         break;
                 }
                 logger.trace("{} is pressed", event.getCode());
             }
-            
+
         });
-        
+
     }
-    
+
     ScoreController scoreController = new ScoreController();
     ListOfEnemies le = new ListOfEnemies();
-    
+
     CheckStateOfGame checkStateOfGame = new CheckStateOfGame();
 //    DB db = new DB();
     //FXML-begin
     @FXML
-            Button button_backtomain;
-    
-    
+    Button button_backtomain;
+
     @FXML
-            Label label_GameOver;
-    
+    Label label_GameOver;
+
     @FXML
-            Label ttc;
-    
+    Label ttc;
+
     @FXML
-            AnchorPane rootPane;
-    
-    
+    AnchorPane rootPane;
+
     @FXML
-            Button btn_addCmp;
-    
+    Button btn_addCmp;
+
     @FXML
-            AnchorPane anchorPane_popUp;
-    
+    AnchorPane anchorPane_popUp;
+
     @FXML
-            AnchorPane mainPane1;
-    
+    AnchorPane mainPane1;
+
     @FXML
-            Label label_Missed;
-    
+    Label label_Missed;
+
     @FXML
-            Label label_Enemies;
-    
+    Label label_Enemies;
+
     @FXML
-            Label label_Scores;
-    
+    Label label_Scores;
+
     @FXML
-            Label label_livesLeft;
+    Label label_livesLeft;
     //FXML-end
-   
-            
-    private String playerName;
-    
+
+    //private String playerName;
     /**
      * Hozzáad egy "ellenséget", rajta egy betűvel.
      *
-     * @param letterToPush  {@code Lettergenerator} generál egy véletlen betűt a {W,A,S,D} halmazból.
-     * @return egy node-al tér vissza, ami tartalmaz egy képet és egy random betűt
+     * @param letterToPush {@code Lettergenerator} generál egy véletlen betűt a
+     * {W,A,S,D} halmazból.
+     * @return egy node-al tér vissza, ami tartalmaz egy képet és egy random
+     * betűt
      */
     public Node spawnCmp(String letterToPush) {
         int randomMultiplier = (int) (Math.random() * 12) * 50;
         final Canvas canvas = new Canvas(50, 50);
-        
+
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.rgb(0, 100, 0));
-        
-        Image image = new Image(getClass().getResource("/textures/cmp_alive.png")
-                .toString(), false);
+
+        Image image = new Image(getClass().getClassLoader().getResource("textures/cmp_alive.png").toString(), false);
         ImageView imageView = new ImageView();
         imageView.setImage(image);
-        
+
         //Adds a letter to the image
         Label letter = new Label(letterToPush);
         letter.setFont(Font.font(30));
         letter.setTranslateY(letter.getTranslateX() - 7);
         letter.setTextFill(Color.rgb(0, 255, 0));
-        
+
         //Adds everything to a pane
         StackPane stackPane = new StackPane();
         stackPane.setPrefSize(50, 50);
         stackPane.getChildren().addAll(canvas, imageView, letter);
         stackPane.setTranslateY(randomMultiplier);
-        
+
         //Adds the stackpane to our mainpane
         mainPane1.getChildren().add(stackPane);
-        
+
         return stackPane;
     }
-    
+
     /**
      * Egy időzítő ami minden képkockában meghívódik.
      */
@@ -180,17 +192,16 @@ public class GameController extends GameLoop {
             onUpdate();
         }
     };
-    
-    
+
     /**
-     * Minden olyan dolgot tartalmaz, amit képkockánként frissíteni kell.
-     * A timer-ben hívjuk meg.
+     * Minden olyan dolgot tartalmaz, amit képkockánként frissíteni kell. A
+     * timer-ben hívjuk meg.
      */
     public void onUpdate() {
         for (Node generatedCmp : le.generatedCmps) {
             generatedCmp.setTranslateX(generatedCmp.getTranslateX() + difficultyMultiplier);
         }
-        
+
         for (int i = 0; i < le.generatedCmps.size(); i++) {
             if (i == 0) {
                 if (le.generatedCmps.get(0).getTranslateX() > 980) {
@@ -205,7 +216,7 @@ public class GameController extends GameLoop {
             }
         }
         //WINDOWS - upd > 30, LINUX = 150
-        if (upd > 30) {
+        if (upd > 150) {
             if (Math.random() < 0.23) {
                 String actualLetter = generateLetterToPush();
                 le.generatedCmps.add(spawnCmp(actualLetter));
@@ -217,47 +228,61 @@ public class GameController extends GameLoop {
         //Number Of enemies
         Integer numberOfEnemies = le.generatedCmps.size();
 //        String noEnemies = numberOfEnemies.toString();
-        
+
         upd++;
         initalizeLabels(numberOfEnemies);
         checkStateOfGame.isGameOver(getMissedKeyPresses(), getLivesLeft());
-        
+
         if (checkStateOfGame.isGameOver == true) {
-            Result myRes = new Result(playerName,getScore().toString());
+//            Result myRes = new Result(nameOfPlayer, getScore().toString());
 //            db.addResult(myRes);
-            
-            
-            
-            checkStateOfGame.endGame(timer, getScoreString(), playerName);
-            checkStateOfGame.printGameOver(label_GameOver, button_backtomain, playerName);
+
+            checkStateOfGame.endGame(timer, getScoreString(), nameOfPlayer);
+            checkStateOfGame.printGameOver(label_GameOver, button_backtomain, nameOfPlayer);
+
+            //JPA mentés
+            JPAEntity playerEntity = new JPAEntity();
+            playerEntity.setPlayerName(nameOfPlayer);
+            playerEntity.setScore(getScore());
+
+            try {
+                DB.save(playerEntity);
+            } catch (IllegalArgumentException e) {
+                //TODO: LOGOLNI!!!
+            } catch (Exception e) {
+                //TODO: LOGOLNI!!!
+            }
+
             mainPane1.getChildren().clear();
         }
-        
-        if (getScore() % 5 == 0 && getScore() != 0)
-            //WINDOWS - difficultyMultiplier = 0.01, LINUX =0.001
-            setDifficultyMultiplier(difficultyMultiplier + 0.01);
+
+        if (getScore() % 5 == 0 && getScore() != 0) //WINDOWS - difficultyMultiplier = 0.01, LINUX =0.001
+        {
+            setDifficultyMultiplier(difficultyMultiplier + 0.0001);
+        }
     }
-    
+
     /**
      * Kattintásra elindítja a játékot.
-     * @param actionEvent 
+     *
+     * @param actionEvent
      */
     public void clickToStart(ActionEvent actionEvent) {
         mainPane1.getChildren().clear();
         timer.start();
         setControl(mainPane1);
         logger.info("Game started");
-        
+
     }
-    
 
     /**
      * Ez a metódus betölti a főmenüt.
+     *
      * @param actionEvent
      * @throws IOException amennyiben nem létezik a megadott fájl.
      */
     public void backToMain(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/mrm/typer/view/MainMenu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/MainMenu.fxml"));
         Parent root = null;
         try {
             root = (Parent) loader.load();
@@ -269,19 +294,21 @@ public class GameController extends GameLoop {
             logger.error("Can't load MainMenu.fxml");
         }
     }
-    
+
     /**
      * Ez a metódus felel a játékos nevének beállításáért.
-     * @param nm 
+     *
+     * @param nm
      */
     public void setPlayerName(String nm) {
-        playerName = nm;
+        nameOfPlayer = nm;
     }
-    
+
     /**
-     * Kiírja pillanatnyi életünket, képernyőn megjelent ellenséget, pontunkat és a 
-     * mellényomott karakterek számát.
-     * @param enemy 
+     * Kiírja pillanatnyi életünket, képernyőn megjelent ellenséget, pontunkat
+     * és a mellényomott karakterek számát.
+     *
+     * @param enemy
      */
     private void initalizeLabels(Integer enemy) {
         label_livesLeft.setText(getLivesLeftString() + "/10");
@@ -289,6 +316,5 @@ public class GameController extends GameLoop {
         label_Scores.setText(getScoreString()); //TODO
         label_Missed.setText(getMissedKeyPressesString() + "/10");
     }
-    
-}
 
+}

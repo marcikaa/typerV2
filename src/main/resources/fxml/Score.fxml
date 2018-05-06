@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="anchorPane1" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mrm.typer.controller.ScoreController">
+   <children>
+      <TableView fx:id="table" layoutX="54.0" layoutY="44.0" prefHeight="550.0" prefWidth="650.0">
+         <columns>
+            <TableColumn id="playersCol" fx:id="playersCol" prefWidth="315.0" text="Playername" />
+            <TableColumn id="scoresCol" fx:id="scoresCol" prefWidth="334.0" text="Scores" />
+         </columns>
+      </TableView>
+      <Button fx:id="button_back" layoutX="54.0" layoutY="617.0" mnemonicParsing="false" onAction="#backToMain" prefHeight="25.0" prefWidth="648.0" text="Back" />
+      <Text layoutX="752.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Best Players">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

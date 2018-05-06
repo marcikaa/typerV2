@@ -1,7 +1,6 @@
 package com.mrm.typer.controller;
 
 
-import com.mrm.typer.MainApp;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -49,7 +48,7 @@ public class MainMenuController implements Initializable {
             TextField textfield_name;
     
     
-    public String nameOfPlayer = "Unknown Player";
+    protected static String nameOfPlayer = "Unknown Player";
     
     
 //    public String getNameOfPlayer() {
@@ -61,12 +60,10 @@ public class MainMenuController implements Initializable {
      * Új játék kezdésésének előkészítése.
      * @param mouseEvent Kattintásra betölti az új Scene-t
      */
-    
     public void action_NewGame(MouseEvent mouseEvent) {
         
-        
-        
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/mrm/typer/view/Game.fxml"));
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/mrm/typer/view/Game.fxml")); Ez így nem jó!!!!!!!!!!!!
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/Game.fxml"));
         
         Parent root = null;
         try {
@@ -85,8 +82,8 @@ public class MainMenuController implements Initializable {
             rootPane.getChildren().clear();
             rootPane.getChildren().add(root);
         } catch (IOException e) {
-            logger.error("Can't load Game.fxml");
-            e.printStackTrace();
+            logger.error("Can't load Game.fxml", e);    //TODO: Nézd, marcika! a logolásba baszasd mellé az általad beírt errro message mellé az e-t, mint exceptiont
+            //e.printStackTrace();                      //Minden egyes ilyen printStachTrace-t meg vegyél ki, ezt helyettesítjük logolássalé!!!!
         }
     }
     
@@ -96,7 +93,7 @@ public class MainMenuController implements Initializable {
      */
     public void action_Scores(MouseEvent mouseEvent) {
         
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/mrm/typer/view/Score.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/Score.fxml"));
         Parent root = null;
         try {
             root = (Parent) loader.load();

@@ -1,88 +1,76 @@
+/*
+ * Copyright 2018 Márton Szabó.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.mrm.typer.controller;
 
-//import com.mrm.typer.model.DB;
+import com.mrm.typer.model.DB.DataBase;
 import com.mrm.typer.model.Result;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
+import org.apache.derby.impl.sql.compile.DB2LengthOperatorNode;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-/**
- * Ez az osztály felelős mindenért ami a Scores menüben található.
- * @author marcikaa
- */
 public class ScoreController implements Initializable {
+
     @FXML
-    AnchorPane anchorPane1;
+    private AnchorPane anchorPane1;
     @FXML
-    TableView table;
-//    DB db = new DB();
-    
-    
+    private Button button_back;
+    @FXML
+    private TableView<?> table;
+    @FXML
+    private TableColumn<?, ?> playersCol;
+
+    @FXML
+    private TableColumn<?, ?> scoresCol;
+
+    @FXML
     public void backToMain(ActionEvent actionEvent) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/mrm/typer/view/MainMenu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/MainMenu.fxml"));
         Parent root = null;
         try {
             root = (Parent) loader.load();
             anchorPane1.getChildren().clear();
             anchorPane1.getChildren().add(root);
         } catch (IOException e) {
+            //TODO: LOG!
             e.printStackTrace();
         }
     }
 
-    Integer score = 250;
-    Result res = new Result("marcikaaaaaaa","3");
-
-    public void addResult(String name, String score){
+    public void addResult(String name, String score) {
 
     }
-
-
-
-    private ObservableList<Result> results =
-            FXCollections.observableArrayList(
-                    new Result("Marcikaa","30"),
-                    new Result("Th","111")
-            );
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        TableColumn nameCol  = new TableColumn("Name");
-        nameCol.setMinWidth(320);
-        nameCol.setMaxWidth(320);
-        nameCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        nameCol.setCellValueFactory(new PropertyValueFactory<Result, String>("name"));
-
-        TableColumn scoreCol  = new TableColumn("Score");
-        scoreCol.setMinWidth(320);
-        scoreCol.setMaxWidth(320);
-        scoreCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        scoreCol.setCellValueFactory(new PropertyValueFactory<Result, Integer>("score"));
-
-
-//        for (Result result : db.getAllResults())
-        {
-//            results.add(result);
-        }
-
-        table.getColumns().addAll(nameCol,scoreCol);
-        table.setItems(results);
-
-
+        
+        
+        
     }
-
 
 }
