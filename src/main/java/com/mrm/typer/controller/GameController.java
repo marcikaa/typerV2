@@ -216,7 +216,7 @@ public class GameController extends GameLoop {
             }
         }
         //WINDOWS - upd > 30, LINUX = 150
-        if (upd > 150) {
+        if (upd > 30) {
             if (Math.random() < 0.23) {
                 String actualLetter = generateLetterToPush();
                 le.generatedCmps.add(spawnCmp(actualLetter));
@@ -258,7 +258,7 @@ public class GameController extends GameLoop {
 
         if (getScore() % 5 == 0 && getScore() != 0) //WINDOWS - difficultyMultiplier = 0.01, LINUX =0.001
         {
-            setDifficultyMultiplier(difficultyMultiplier + 0.0001);
+            setDifficultyMultiplier(difficultyMultiplier + 0.01);
         }
     }
 
