@@ -16,14 +16,16 @@
 package com.mrm.typer.controller;
 
 import com.mrm.typer.model.DB.DataBase;
-import com.mrm.typer.model.Result;
 import com.mrm.typer.model.entity.JPAEntity;
 import java.io.IOException;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,30 +34,24 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
-import org.apache.derby.impl.sql.compile.DB2LengthOperatorNode;
 
 public class ScoreController implements Initializable {
 
-    
-
-    public ScoreController() {
-        
-    }
-    
     @FXML
     private AnchorPane anchorPane1;
     @FXML
     private Button button_back;
     @FXML
-    private TableView<?> table;
+    private TableView<String> table;
     @FXML
-    private TableColumn<?, ?> playersCol;
+    private TableColumn<String, String> playersCol;
+    @FXML
+    private TableColumn<String, String> scoresCol;
 
-    @FXML
-    private TableColumn<?, ?> scoresCol;
+    private static final DataBase DB = DataBase.getDbPeldany();
+    private List<JPAEntity> entities = new LinkedList();
+    private ObservableList<String> data = FXCollections.observableArrayList();
 
     @FXML
     public void backToMain(ActionEvent actionEvent) {
@@ -77,13 +73,20 @@ public class ScoreController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
- 
+
         try {
-            DataBase.getDbPeldany().getDbPeldany().findHighScore();
+            entities = DB.getAllOrderedByScore();
         } catch (Exception ex) {
             Logger.getLogger(ScoreController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
+        if (entities != null) {
+            for (JPAEntity e : entities) {
+                data.add(e.getPlayerName());
+                data.add(e.getScore().toString());
+            }
+            table.setItems(data);
+        }
     }
 
 }
