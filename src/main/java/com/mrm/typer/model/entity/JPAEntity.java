@@ -32,11 +32,11 @@ import lombok.ToString;
 @Table(name = "SCORES", schema = "MY_SCHEMA_NAME")
 
 @NamedQueries({
-    @NamedQuery(name = "SampleJPAEntity.findPlayerByID", query = "SELECT e FROM SampleJPAEntity e WHERE e.id = :id ORDER BY e.score")
+    @NamedQuery(name = "JPAEntity.findPlayerByID", query = "SELECT e FROM JPAEntity e WHERE e.id = :id ORDER BY e.score")
     ,
-    @NamedQuery(name = "SampleJPAEntity.findPlayerByName", query = "SELECT e FROM SampleJPAEntity e WHERE LOWER(e.playerName) LIKE LOWER(:playerName) ORDER BY e.score")
+    @NamedQuery(name = "JPAEntity.findPlayerByName", query = "SELECT e FROM JPAEntity e WHERE LOWER(e.playerName) LIKE LOWER(:playerName) ORDER BY e.score")
     ,
-    @NamedQuery(name = "SampleJPAEntity.findHighScore", query = "SELECT MAX(e.score) FROM SampleJPAEntity e")
+    @NamedQuery(name = "JPAEntity.findHighScore", query = "SELECT MAX(e.score) FROM JPAEntity e")
 })
 @Data               //fontos, JPA használja a Gettereket, Settereket
 @EqualsAndHashCode  //mégfontosabb, hiszen a JPA ezeken keresztül tud összehasonlítani 2 entitást
