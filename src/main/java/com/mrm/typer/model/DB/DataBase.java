@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,7 @@ public class DataBase {
 
     private static final DataBase DB_PELDANY = new DataBase();
 
+    @PersistenceContext(unitName = "typerDB")
     private EntityManager em;
 
     /**
@@ -224,33 +226,13 @@ public class DataBase {
         }
     }
 
-    /**
-     * High score(ok) keresése. Lehet több ugyan olyan score is, ezért List.
-     *
-     * @return SampleJPAEntity entitás példányok, vagy {@code null}, ha nem
-     * található az adatbázisban
-     * @throws IllegalStateException ha nincs adatbázis-kapcsolat
-     * @throws Exception JPA hiba esetén
-     */
-    public List<JPAEntity> findHighScore() throws IllegalStateException, Exception {
+    
+    public List<JPAEntity> getAllOrderedByScore() throws IllegalStateException, Exception {
 
         if (!connected()) {
             throw new IllegalStateException("Nincs adatbázis-kapcsolat!");
         }
 
-        try {
-            Query query = em.createNamedQuery("JPAEntity.findHighScore", JPAEntity.class);
-
-            @SuppressWarnings("unchecked")
-            List<JPAEntity> entitys = query.getResultList();
-
-            return entitys;
-
-        } catch (NoResultException e) {
-            return null;
-        } catch (PersistenceException e) {
-            log.error("JPA lekérdezési hiba!");
-            throw new Exception("JPA hiba!", e);
-        }
+            return (List<JPAEntity>) em.createNamedQuery("JPAEntity.getAllOrderedByScore").getResultList();
     }
 }
