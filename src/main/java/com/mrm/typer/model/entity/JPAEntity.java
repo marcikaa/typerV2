@@ -36,7 +36,7 @@ import lombok.ToString;
     ,
     @NamedQuery(name = "JPAEntity.findPlayerByName", query = "SELECT e FROM JPAEntity e WHERE LOWER(e.playerName) LIKE LOWER(:playerName) ORDER BY e.score")
     ,
-    @NamedQuery(name = "JPAEntity.findHighScore", query = "SELECT MAX(e.score) FROM JPAEntity e")
+    @NamedQuery(name = "JPAEntity.getAllOrderedByScore", query = "SELECT e FROM JPAEntity e ORDER BY e.score DESC")
 })
 @Data               //fontos, JPA használja a Gettereket, Settereket
 @EqualsAndHashCode  //mégfontosabb, hiszen a JPA ezeken keresztül tud összehasonlítani 2 entitást
