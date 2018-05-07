@@ -11,8 +11,8 @@
    <children>
       <TableView fx:id="table" layoutX="54.0" layoutY="44.0" prefHeight="550.0" prefWidth="650.0">
          <columns>
-            <TableColumn id="playersCol" fx:id="playersCol" prefWidth="315.0" text="Playername" />
-            <TableColumn id="scoresCol" fx:id="scoresCol" prefWidth="334.0" text="Scores" />
+           <!--<TableColumn id="playersCol" fx:id="playersCol" prefWidth="315.0" text="Playername" />-->
+            <!--<TableColumn id="scoresCol" fx:id="scoresCol" prefWidth="334.0" text="Scores" />-->
          </columns>
       </TableView>
       <Button fx:id="button_back" layoutX="54.0" layoutY="617.0" mnemonicParsing="false" onAction="#backToMain" prefHeight="25.0" prefWidth="648.0" text="Back" />

@@ -67,7 +67,7 @@ public class ScoreController implements Initializable {
     }
     
     public void addResult(String name, String score) {
-        
+    
     }
     
     private ObservableList<Result> results =
@@ -107,7 +107,7 @@ public class ScoreController implements Initializable {
         TableColumn nameCol  = new TableColumn("Name");
         nameCol.setMinWidth(320);
         nameCol.setMaxWidth(320);
-        nameCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        nameCol.setCellFactory(TextFieldTableCell.forTableColumn());        
         nameCol.setCellValueFactory(new PropertyValueFactory<Result, String>("name"));
         
         TableColumn scoreCol  = new TableColumn("Score");
