@@ -33,25 +33,47 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
+import org.slf4j.LoggerFactory;
 
+/**
+ * A pontok megjelenítésért felelős osztály.
+ * @author marcikaa
+ */
 public class ScoreController implements Initializable {
-    
+    /**
+     * {@code Logger} objektum.
+     */
+    private static org.slf4j.Logger logger = LoggerFactory.getLogger(ScoreController.class);
+    //CHECKSTYLE:OFF
     @FXML
     private AnchorPane anchorPane1;
+    
     @FXML
-    private Button button_back;
+    private Label best_Score;
+    
     @FXML
     private TableView table;
-    
+    //CHECKSTYLE:ON
+    /**
+     * Az adatbázis példánya.
+     */
     private static final DataBase DB = DataBase.getDbPeldany();
-    private List<JPAEntity> entities = new LinkedList();
-    private ObservableList<String> data = FXCollections.observableArrayList();
     
+    /**
+     * Ebbe a listába kerülnek az adatbázisból lekérdezett elemek.
+     */
+    private List<JPAEntity> entities = new LinkedList();
+    
+    /**
+     * Ez a metódus betölti a mainMenu-t.
+     * @param actionEvent kattintásra
+     */
     @FXML
     public void backToMain(ActionEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/MainMenu.fxml"));
@@ -61,15 +83,13 @@ public class ScoreController implements Initializable {
             anchorPane1.getChildren().clear();
             anchorPane1.getChildren().add(root);
         } catch (IOException e) {
-            //TODO: LOG!
-            e.printStackTrace();
+            
         }
     }
     
-    public void addResult(String name, String score) {
-    
-    }
-    
+    /**
+     * Ennek segítségével fognak megjelenni az adatok a táblázatban.
+     */
     private ObservableList<Result> results =
             FXCollections.observableArrayList(
                     
@@ -78,27 +98,15 @@ public class ScoreController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
-        /*TableColumn<JPAEntity,String> nameCol = new TableColumn<JPAEntity, String>("Name");
-        nameCol.setMinWidth(325);
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("playerName"));
-        
-        TableColumn<JPAEntity,Integer> scoreCol = new TableColumn<JPAEntity, Integer>("Score");
-        scoreCol.setMinWidth(325);
-        scoreCol.setCellValueFactory(new PropertyValueFactory<>("score"));*/
-        
-        
-        results.add(new Result("MRM","1"));
         
         try {
             entities = DB.getAllOrderedByScore();
         } catch (Exception ex) {
-            Logger.getLogger(ScoreController.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("Couldn't get scores" + ex);
         }
         
         if (entities != null) {
             for (JPAEntity e : entities) {
-//                data.add(e.getPlayerName());
-//                data.add(e.getScore().toString());
                 results.add(new Result(e.getPlayerName(),e.getScore().toString()));
             }
             
@@ -107,7 +115,7 @@ public class ScoreController implements Initializable {
         TableColumn nameCol  = new TableColumn("Name");
         nameCol.setMinWidth(320);
         nameCol.setMaxWidth(320);
-        nameCol.setCellFactory(TextFieldTableCell.forTableColumn());        
+        nameCol.setCellFactory(TextFieldTableCell.forTableColumn());
         nameCol.setCellValueFactory(new PropertyValueFactory<Result, String>("name"));
         
         TableColumn scoreCol  = new TableColumn("Score");
@@ -117,6 +125,8 @@ public class ScoreController implements Initializable {
         scoreCol.setCellValueFactory(new PropertyValueFactory<Result, Integer>("score"));
         table.getColumns().addAll(nameCol,scoreCol);
         table.setItems(results);
+        
+        best_Score.setText(entities.get(0).getScore().toString());
     }
     
     

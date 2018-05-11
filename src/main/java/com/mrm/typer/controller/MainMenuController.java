@@ -23,9 +23,11 @@ import org.slf4j.LoggerFactory;
  * @author marcikaa
  */
 public class MainMenuController implements Initializable {
-    
-   private static Logger logger = LoggerFactory.getLogger(MainMenuController.class);
-    
+    /**
+     * {@code Logger} objektum.
+     */
+    private static Logger logger = LoggerFactory.getLogger(MainMenuController.class);
+    //CHECKSTYLE:OFF
     @FXML
             AnchorPane rootPane;
     
@@ -46,14 +48,12 @@ public class MainMenuController implements Initializable {
     
     @FXML
             TextField textfield_name;
+    //CHECKSTYLE:ON
     
-    
+    /**
+     * Játékos nevének alapértelmezett értéke.
+     */
     protected static String nameOfPlayer = "Unknown Player";
-    
-    
-//    public String getNameOfPlayer() {
-//        return nameOfPlayer;
-//    }
     
     
     /**
@@ -62,7 +62,6 @@ public class MainMenuController implements Initializable {
      */
     public void action_NewGame(MouseEvent mouseEvent) {
         
-        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/mrm/typer/view/Game.fxml")); Ez így nem jó!!!!!!!!!!!!
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/Game.fxml"));
         
         Parent root = null;
@@ -82,8 +81,7 @@ public class MainMenuController implements Initializable {
             rootPane.getChildren().clear();
             rootPane.getChildren().add(root);
         } catch (IOException e) {
-            logger.error("Can't load Game.fxml", e);    //TODO: Nézd, marcika! a logolásba baszasd mellé az általad beírt errro message mellé az e-t, mint exceptiont
-            //e.printStackTrace();                      //Minden egyes ilyen printStachTrace-t meg vegyél ki, ezt helyettesítjük logolássalé!!!!
+            logger.error("Can't load Game.fxml" + e);
         }
     }
     
@@ -101,13 +99,12 @@ public class MainMenuController implements Initializable {
             rootPane.getChildren().add(root);
             logger.info("Score.fxml loaded");
         } catch (IOException e) {
-            logger.error("Can't load Score.fxml");
-            e.printStackTrace();
+            logger.error("Can't load Score.fxml" + e);
         }
     }
     
     /**
-     * Kilépés az alkalmazásból
+     * Kilépés az alkalmazásból.
      * @param mouseEvent Kilép az alkalmazásból
      */
     public void action_Exit(MouseEvent mouseEvent) {
@@ -115,7 +112,9 @@ public class MainMenuController implements Initializable {
         logger.info("Exiting game");
         stage.close();
     }
-    
+
+    //CHECKSTYLE:OFF
     public void initialize(URL location, ResourceBundle resources) {
     }
+    //CHECKSTYLE:ON
 }

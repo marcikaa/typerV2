@@ -13,14 +13,12 @@
     <description>TODO</description>
     <url>https://github.com/</url>
 
-    <!-- https://maven.apache.org/pom.html#Organization -->
     <organization>
         <name>Márton Szabó</name>
         <url>https://github.com</url>
     </organization>
     <inceptionYear>2018</inceptionYear>
 
-    <!-- https://maven.apache.org/pom.html#Developers -->
     <developers>
         <developer>
             <id>marcika</id>
@@ -29,16 +27,7 @@
         </developer>
     </developers>
 
-    <!-- https://maven.apache.org/pom.html#SCM -->
-    <scm>
-        <connection>scm:git:git@github.com:marcika/typerv2.git</connection>
-        <url>scm:git:git@github.com:marcika/typerv2.git</url>
-        <developerConnection>scm:git:git@github.com:marcika/typerv2.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
 
-    <!--     https://maven.apache.org/pom.html#Licenses 
-    -->    
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -47,31 +36,23 @@
             <comments>A business-friendly OSS license</comments>
         </license>
     </licenses>
+    
+        <scm>
+        <connection>scm:git:git@github.com:marcika/typerv2.git</connection>
+        <url>scm:git:git@github.com:marcika/typerv2.git</url>
+        <developerConnection>scm:git:git@github.com:marcika/typerv2.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
-
-        <!-- Resources állományok kódlap beállítása ("[WARNING] Using platform encoding ??? actually) to copy filtered resources, i.e. build is platform dependent!") -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-        <!-- Java 8 megadása fordítónak-->
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-
-        <!-- Maven Riportok output kódlapja -->
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <!-- JavaDOC hibák csak warning-ok legyenek a Maven konzol output-ban, a site-ben ténylegesen hibáknak látszanak-->
         <additionalparam>-Xdoclint:none</additionalparam>
-
-        <!-- Main class -->
         <mainClass>com.mrm.typer.MainApp</mainClass>
-
-        <!-- Maven teszt fázis futtatás kikapcsolása-->
-        <maven.test.skip>true</maven.test.skip>
-
-        <!-- JavaFX futtatás argumentumok -->
+        <maven.test.skip>false</maven.test.skip>
         <runfx.args>-jar "${project.build.directory}/${project.build.finalName}.jar"</runfx.args>
-
     </properties>
 
     <dependencies>
@@ -81,15 +62,12 @@
             <version>3.7</version>
         </dependency>
 
-        
-        <!-- Lombok: @Getter/@Setter/@Data/... -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.20</version>
         </dependency>
 
-        <!-- LogBack + Slf4j -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -101,28 +79,24 @@
             <version>1.7.25</version>
         </dependency>
 
-        <!-- JPA API: EclipseLink -->
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>eclipselink</artifactId>
             <version>2.6.1</version>
         </dependency>
 
-        <!-- Entitás validációhoz -->
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <version>1.1.0.Final</version>
         </dependency>
 
-        <!--Derby embedded DB-->
         <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
             <version>10.14.1.0</version>
         </dependency>
 
-        <!-- JUnit Test -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -140,9 +114,6 @@
     <build>
 
         <resources>
-            <!-- Resources állományok (pl.: versionInfo.properties) karbantartása
-                https://maven.apache.org/plugins/maven-resources-plugin/examples/filter.html
-            -->
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
@@ -167,7 +138,6 @@
 
         <plugins>
 
-            <!-- A fordítás közben a '...uses unchecked or unsafe operations' üzenetek okait is lássuk -->
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
@@ -179,10 +149,6 @@
             </configuration>
         </plugin>
 
-            <!-- Enforcer: Java minimum verzió ellenőrzése.
-            Az enforcer default életciklus kötése a 'validate'
-            (http://maven.apache.org/enforcer/maven-enforcer-plugin/enforce-mojo.html)
-            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -205,7 +171,6 @@
             </plugin>
 
 
-            <!-- Fat/Uber JAR gyártása az assembly plugin segítségével -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -229,28 +194,10 @@
                     </execution>
                 </executions>
             </plugin>
-
-<!--            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <version>1.16</version>
-                <executions>
-                    <execution>
-                        <id>first</id>
-                        <goals>
-                            <goal>update-file-header</goal>
-                        </goals>
-                        <phase>process-sources</phase>
-                    </execution>
-                </executions>
-            </plugin>
-
-            -->
         </plugins>
     </build>
 
 
-    <!--Maven site - riporthoz -->
     <reporting>
         <plugins>
             <plugin>
@@ -259,7 +206,6 @@
                 <version>2.9</version>
             </plugin>
 
-            <!-- Java forrás XRef -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
@@ -269,7 +215,6 @@
                 </configuration>
             </plugin>
 
-            <!-- JavaDoc -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -280,18 +225,15 @@
                 </configuration>
             </plugin>
 
-            <!-- CheckStyle Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>2.17</version>
                 <configuration>
                     <configLocation>src/main/resources/checkstyle-config.xml</configLocation>
-                    <!--<suppressionsLocation>checkstyle-supressions.xml</suppressionsLocation>-->
                 </configuration>
             </plugin>
 
-            <!-- Maven Plugin Versions Update Plugin -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
@@ -308,15 +250,12 @@
                 </reportSets>
             </plugin>
 
-
-            <!-- Surefire -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
                 <version>2.21.0</version>
             </plugin>
 
-            <!-- JaCoCo -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>

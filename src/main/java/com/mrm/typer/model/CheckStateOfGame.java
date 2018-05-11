@@ -10,11 +10,10 @@ import javafx.scene.control.Label;
  */
 public class CheckStateOfGame extends GameLoop {
 
-
+    /**
+     * Amennyiben vége a játéknak ezt a változót változtatjuk {@code True} értékre.
+     */
     public boolean isGameOver = false;
-
-    
-    boolean tooMuchMisses = false;
 
     /**
      * Amennyiben elfogy az életünk, vagy túlléptük a megengedett

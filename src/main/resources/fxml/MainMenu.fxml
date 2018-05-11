@@ -31,9 +31,9 @@
         </AnchorPane>
         <AnchorPane fx:id="subPane" layoutY="700.0" maxHeight="100.0" maxWidth="1000.0" minHeight="100.0" minWidth="1000.0" prefHeight="100.0" prefWidth="1000.0">
          <children>
-            <Label fx:id="Welcome" layoutX="369.0" layoutY="-32.0" prefHeight="111.0" prefWidth="330.0" text="Welcome" textAlignment="CENTER">
+            <Label fx:id="Welcome" layoutX="379.0" layoutY="-27.0" prefHeight="111.0" prefWidth="330.0" text="Welcome" textAlignment="CENTER">
                <font>
-                  <Font size="58.0" />
+                  <Font size="49.0" />
                </font>
             </Label>
          </children>

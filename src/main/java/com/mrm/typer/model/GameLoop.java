@@ -1,20 +1,40 @@
 package com.mrm.typer.model;
 
 import com.mrm.typer.controller.MainMenuController;
-
+/**
+ * A játék adatait tároló osztály.
+ * @author marcikaa
+ */
 public class GameLoop extends MainMenuController {
     
     //WINDOWS  difficultyMultiplier = 2, LINUX = 0.5
-    public double difficultyMultiplier = 2;
     
+    /**
+     * Gyorsaság mértéke.
+     */
+    public double difficultyMultiplier = 0.5;
+    
+    /**
+     * Gyorsaság mértékének beállítása.
+     * @param difficultyMultiplier mennyire szeretnénk beállítani a gyorsaságot
+     */
     public void setDifficultyMultiplier(double difficultyMultiplier) {
         this.difficultyMultiplier = difficultyMultiplier;
     }
     
+    /**
+     * Melléütött karakterek számlálója.
+     */
     private Integer missedKeyPresses = 0;
     
+    /**
+     * Pontok számlálása.
+     */
     private Integer score = 0;
     
+    /**
+     * Mennyi életünk van még hátra.
+     */
     private Integer livesLeft = 10;
     
     /**
@@ -43,7 +63,7 @@ public class GameLoop extends MainMenuController {
     }
     
     /**
-     * Visszaadja hány életünk maradt még String-ként
+     * Visszaadja hány életünk maradt még String-ként.
      * @return életünk száma String-ként
      */
     public String getLivesLeftString(){
@@ -66,6 +86,10 @@ public class GameLoop extends MainMenuController {
         this.score = score;
     }
     
+    /**
+     * Ennek az a feladata, hogy az új ellenfél hozzáadásának sebességét állítja.
+     * Bővebben {@link com.mrm.typer.controller.GameController#onUpdate() }
+     */
     public Integer upd = 0;
     
     /**

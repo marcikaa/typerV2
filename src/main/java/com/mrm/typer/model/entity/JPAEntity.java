@@ -27,9 +27,12 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-
+/**
+ * JPA entitás osztálya.
+ * @author marcikaa
+ */
 @Entity
-@Table(name = "SCORES", schema = "MY_SCHEMA_NAME")
+@Table(name = "SCORES", schema = "databaseOfTyper")
 
 @NamedQueries({
     @NamedQuery(name = "JPAEntity.findPlayerByID", query = "SELECT e FROM JPAEntity e WHERE e.id = :id ORDER BY e.score")
@@ -38,16 +41,16 @@ import lombok.ToString;
     ,
     @NamedQuery(name = "JPAEntity.getAllOrderedByScore", query = "SELECT e FROM JPAEntity e ORDER BY e.score DESC")
 })
-@Data               //fontos, JPA használja a Gettereket, Settereket
-@EqualsAndHashCode  //mégfontosabb, hiszen a JPA ezeken keresztül tud összehasonlítani 2 entitást
+@Data //getterek és setterek
+@EqualsAndHashCode
 @ToString(callSuper = true)
 public class JPAEntity implements Serializable {
 
     /**
-     * Entitás elsődleges, automatikusan generált kulcsa. (kötelező JPA elem)
+     * ID kötelező a JPA-hoz.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)          // az itt zárójelben megadott 'strategy'-nek amúgy ez a default értéke is, csak szemléltetés miatt írtam ide,
+    @GeneratedValue(strategy = GenerationType.AUTO)         
     @Column(name = "ID", nullable = false, updatable = false)   // hiszen a JPA tud saját magától is egyedi ID-t generálni
     private Long id;
 

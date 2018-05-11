@@ -11,105 +11,98 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+/**
+ * Ez az osztály felelős az adatbáziskapcsolat irányításáért.
+ * @author marcikaa
+ */
 @Slf4j
 public class DataBase {
-
+    //CHECKSTYLE:OFF
+    private static Logger logger = LoggerFactory.getLogger(DataBase.class);
     private static final DataBase DB_PELDANY = new DataBase();
-
+    
     @PersistenceContext(unitName = "typerDB")
     private EntityManager em;
-
-    /**
-     * Privát konstruktor.
-     */
+    
     private DataBase() {
     }
-
+    //CHECKSTYLE:ON
     /**
-     * Aktiális DB szingleton példány lekérése.
-     *
-     * @return singleton példány referencia
+     * Visszaadja az adatbázis példányát.
+     * @return referencia a példányra
      */
     public static DataBase getDbPeldany() {
         return DB_PELDANY;
     }
-
+    
     /**
-     * Adatbáziskapcsolat létrehozása JPA-val.
+     * Entitymanager megnyitása (adatbáziskapcsolat).
      *
      * @throws Exception JPA hiba esetén
      */
     public void connectDB() throws Exception {
-        //persistence.xml-ben fontos, hogy megegyezzen a persistence-unit name ezzel, jelen esetben 'database'
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("typerDB");
         em = emFactory.createEntityManager();
-        log.trace("Adatbázis kapcsolat OK.");
+        logger.trace("Adatbázis kapcsolat OK.");
     }
-
+    
     /**
-     * Adatbáziskapcsolat lezárása JPA-val.
+     * Entitymanager lezárása.
      */
     public void disconnectDB() {
         if (connected()) {
             em.close();
-            log.trace("Disconnect OK.");
+            logger.trace("Disconnect OK.");
         }
         em = null;
     }
-
+    
     /**
-     * EntityManager él és csatlakoztatva van az adatbázishoz?
-     *
-     * @return true -> igen
+     * Megnézi hogy az em létezik és nyitva van-e.
+     * @return nyitva van-e
      */
     public boolean connected() {
-
+        
         return em != null && em.isOpen();
     }
-
+    
     /**
-     * @param entity menteni kíván entitás
-     *
-     * @return mentett entitás (nem lenne feltétlenül szükséges, lehetne akár
-     * void is, viszont hibaellenőrzéshez tök jó szerintem)
-     *
-     * @throws IllegalStateException ha nincs adatbázis-kapcsolat
-     * @throws IllegalArgumentException ha a menteni kívánt film címe
-     * érvénytelen ({@code null})
-     * @throws Exception JPA hiba esetén
+     * Entitás mentése.
+     * @param entity menteni kívánt entitás
      */
-    public JPAEntity save(JPAEntity entity) throws IllegalStateException, IllegalArgumentException, Exception {
-
+    public void save(JPAEntity entity) {
+        
         if (!connected()) {
-            throw new IllegalStateException("Nincs adatbázis-kapcsolat!");
+            logger.error("Nincs adatbáziskapcsolat");
         }
-
+        
         if (entity == null) {
-            throw new IllegalArgumentException("A mentendő entitás null!");
+            logger.error("Nem megfelelő entitás");
         }
-
+        
         try {
             em.getTransaction().begin();
-
+            
             if (entity.getId() == null) {
-                em.persist(entity);  //új entitás --> persist (insert)
+                em.persist(entity);
             } else {
-                em.merge(entity);    //módosítás --> merge (update)
+                em.merge(entity);
             }
-
+            
             em.getTransaction().commit();
-
-            return entity;
+            
+            
         } catch (PersistenceException e) {
-
-            log.error("JPA lekérdezési hiba!");
-            throw new Exception("JPA hiba!", e);
+            
+            logger.error("JPA lekérdezési hiba!" + e);
         }
     }
-
+    
     /**
-     * Entitás törlése az adatbázisból.
+     * Kitöröl egy entitást az adatbázisból.
      *
      * @param entity törlendő entitás
      *
@@ -122,73 +115,70 @@ public class DataBase {
         if (!connected()) {
             throw new IllegalStateException("Nincs adatbázis-kapcsolat!");
         }
-
+        
         if (entity == null || entity.getId() == 0) {
             throw new IllegalArgumentException("A törlendő entitás null vagy nincs ID-je!");
         }
-
+        
         try {
             //a törlés előtt kikeresem az entitást, hogy biztosan Managed legyen
             JPAEntity delEntity = em.find(JPAEntity.class, entity.getId());
-
+            
             if (delEntity.getId() == null) {
                 throw new IllegalArgumentException("A törlendő film nem található az adatbázisban!");
             }
-
+            
             em.getTransaction().begin();
             em.remove(delEntity);
             em.getTransaction().commit();
-
+            
         } catch (PersistenceException e) {
-            log.error("JPA lekérdezési hiba!");
-            throw new Exception("JPA hiba", e);
+            logger.error("JPA lekérdezési hiba!" + e);
         }
     }
-
-//---------------------------------------------------------
-//---------------------NamedQueries------------------------
-//---------------------------------------------------------
+    
+    
     /**
-     * Player keresése ID alapján.
+     * {@code ID} alapján player-t tudunk keresni.
      *
      * @param id player példány {@code ID}-ja
      *
-     * @return a keresett SampleJPAEntity példány, vagy {@code null}, ha nem
+     * @return a keresett JPAEntity példány, vagy {@code null}, ha nem
      * található az adatbázisban
      *
      * @throws IllegalStateException ha nincs adatbázis-kapcsolat
      * @throws Exception JPA hiba esetén
      */
     public JPAEntity findPlayerByID(Long id) throws IllegalStateException, Exception {
-
+        
         if (!connected()) {
             throw new IllegalStateException("Nincs adatbázis-kapcsolat!");
         }
-
+        
         if (id == null) {
             return null;
         }
-
+        
         try {
-
+            
             Query query = em.createNamedQuery("JPAEntity.findPlayerByID");
             query.setParameter("id", id);
             JPAEntity entity = (JPAEntity) query.getSingleResult();
-
+            
             return entity;
-
+            
         } catch (NoResultException e) {
             return null;
         } catch (PersistenceException e) {
-            log.error("JPA lekérdezési hiba!");
+            logger.error("JPA lekérdezési hiba!");
             throw new Exception("JPA hiba!", e);
         }
     }
-
+    
     /**
-     * Player(ek) keresése név alapján.
+     * Player keresése {@code playerName}név alapján.
      *
-     * @param playerName a keresendő player(ek) neve
+     * @param playerName a keresendő player neve
      *
      * @return JPAEntity entitás példányok, vagy {@code null}, ha nem
      * található az adatbázisban
@@ -199,40 +189,43 @@ public class DataBase {
      * @throws Exception JPA hiba esetén
      */
     public List<JPAEntity> findPlayerByName(String playerName) throws IllegalStateException, IllegalArgumentException, Exception {
-
+        
         if (!connected()) {
             throw new IllegalStateException("Nincs adatbázis-kapcsolat!");
         }
-
+        
         if (StringUtils.isEmpty(playerName)) {
             throw new IllegalArgumentException("Érvénytelen a cím megadása!");
         }
-
+        
         try {
             Query query = em.createNamedQuery("JPAEntity.findPlayerByName", JPAEntity.class);
             query.setParameter("playerName", playerName);
-
-//A "...uses unchecked or unsafe operations" warning elkerülése, itt csak JPAEntity lista jöhet vissza
+            
             @SuppressWarnings("unchecked")
-            List<JPAEntity> entitys = query.getResultList();
-
+                    List<JPAEntity> entitys = query.getResultList();
+            
             return entitys;
-
+            
         } catch (NoResultException e) {
             return null;
         } catch (PersistenceException e) {
-            log.error("JPA lekérdezési hiba!");
+            logger.error("JPA lekérdezési hiba!");
             throw new Exception("JPA hiba!", e);
         }
     }
-
     
-    public List<JPAEntity> getAllOrderedByScore() throws IllegalStateException, Exception {
-
+    /**
+     * Nevek és pontok listázása.
+     * @return egy listával ami tárolja az összes nevet és pontot
+     * @throws IllegalStateException ha nincs adatbázis kapcsolat
+     */
+    public List<JPAEntity> getAllOrderedByScore() throws IllegalStateException {
+        
         if (!connected()) {
             throw new IllegalStateException("Nincs adatbázis-kapcsolat!");
         }
-
-            return (List<JPAEntity>) em.createNamedQuery("JPAEntity.getAllOrderedByScore").getResultList();
+        
+        return (List<JPAEntity>) em.createNamedQuery("JPAEntity.getAllOrderedByScore").getResultList();
     }
 }
