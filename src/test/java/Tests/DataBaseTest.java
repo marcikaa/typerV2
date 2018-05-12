@@ -56,11 +56,11 @@ public class DataBaseTest {
         
     }
     
-    /* @Test
-    public void b_findByIDTest() throws Exception{
-    JPAEntity byID = db.findPlayerByID(idd);
-    assertNotNull(byID);
-    }*/
+//     @Test
+//    public void b_findByIDTest() throws Exception{
+//    JPAEntity byID = db.findPlayerByID(idd);
+//    assertNotNull(byID);
+//    }
     
     @Test
     public void c_findByNameTest() throws IllegalArgumentException, Exception{

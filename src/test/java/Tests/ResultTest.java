@@ -1,12 +1,8 @@
 package Tests;
 
-import com.mrm.typer.controller.GameController;
-import java.util.ArrayList;
-import java.util.List;
-import org.junit.Test;
+import com.mrm.typer.model.Result;
 import static org.junit.Assert.*;
-
-
+import org.junit.Test;
 
 /*
 * Copyright 2018 Márton Szabó.
@@ -28,18 +24,25 @@ import static org.junit.Assert.*;
  *
  * @author marcikaa
  */
-public class GameControllerTest {
-
-    GameController gc = new GameController();
+public class ResultTest {
     
     @Test
-    public void testDifficulty(){
-        Double[] expected = new Double[] {0.0,0.5};
-        Double[] real = new Double[] {(double)gc.getScore(),gc.getDifficultyMultiplier()};
-        assertArrayEquals(expected,real);
-    }   
+    public void testSetterAndGetterForScore(){
+        
+        Result res = new Result("Teszt1", "20");
+        res.setScore("30");
+        assertEquals("30", res.getScore());
+        System.out.println("Az eredmény: " + res.getScore() + " Sikerült a set");
+        
+    }
     
-
-    
+    @Test
+    public void testSettersAndGetterForName(){
+        
+        Result res = new Result("Teszt1", "20");
+        res.setName("Teszt2");
+        assertEquals("Teszt2", res.getName());
+        System.out.println("A név: " + res.getName() + " Sikerült a set");
+    }
     
 }
