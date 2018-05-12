@@ -101,7 +101,7 @@ public class GameController extends GameLoop {
     }
     //CHECKSTYLE:OFF
     ScoreController scoreController = new ScoreController();
-    ListOfEnemies le = new ListOfEnemies();
+    public ListOfEnemies le = new ListOfEnemies();
     
     CheckStateOfGame checkStateOfGame = new CheckStateOfGame();
     
@@ -140,6 +140,28 @@ public class GameController extends GameLoop {
             Label label_livesLeft;
     //FXML-end
     //CHECKSTYLE:ON
+    
+    /**
+     *Hozzáadja a listához az ellenfeleket.
+     * @param al betű ami az adott ellenfelen lesz
+     */
+    public void addToListst(String al){
+        le.generatedCmps.add(spawnCmp(al));
+        le.generatedLetterToCmps.add(al);
+    }
+    
+    /**
+     * Betölti a képet.
+     * @return imageview a képpel együtt
+     */
+    public ImageView initPic(){
+        Image image = new Image(getClass().getClassLoader().getResource("textures/cmp_alive.png").toString(), false);
+        ImageView imageView = new ImageView();
+        imageView.setImage(image);
+        return imageView;
+    }
+    
+    
     /**
      * Hozzáad egy "ellenséget", rajta egy betűvel.
      *
@@ -154,27 +176,27 @@ public class GameController extends GameLoop {
         
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.rgb(0, 100, 0));
-        
-        Image image = new Image(getClass().getClassLoader().getResource("textures/cmp_alive.png").toString(), false);
-        ImageView imageView = new ImageView();
-        imageView.setImage(image);
-        
-        //Hozzáad egy betűt a képhez
-        Label letter = new Label(letterToPush);
-        letter.setFont(Font.font(30));
-        letter.setTranslateY(letter.getTranslateX() - 7);
-        letter.setTextFill(Color.rgb(0, 255, 0));
-        
-        //Hozzáad mindent a Pane-hez
-        StackPane stackPane = new StackPane();
-        stackPane.setPrefSize(50, 50);
-        stackPane.getChildren().addAll(canvas, imageView, letter);
-        stackPane.setTranslateY(randomMultiplier);
-        
-        //Hozzáad mindent a mainPane1-hez
-        mainPane1.getChildren().add(stackPane);
-        
-        return stackPane;
+//        initPic();
+//        Image image = new Image(getClass().getClassLoader().getResource("textures/cmp_alive.png").toString(), false);
+//        ImageView imageView = new ImageView();
+//        imageView.setImage(image);
+
+//Hozzáad egy betűt a képhez
+Label letter = new Label(letterToPush);
+letter.setFont(Font.font(30));
+letter.setTranslateY(letter.getTranslateX() - 7);
+letter.setTextFill(Color.rgb(0, 255, 0));
+
+//Hozzáad mindent a Pane-hez
+StackPane stackPane = new StackPane();
+stackPane.setPrefSize(50, 50);
+stackPane.getChildren().addAll(canvas, initPic(), letter);
+stackPane.setTranslateY(randomMultiplier);
+
+//Hozzáad mindent a mainPane1-hez
+mainPane1.getChildren().add(stackPane);
+
+return stackPane;
     }
     
     /**
@@ -193,7 +215,7 @@ public class GameController extends GameLoop {
      */
     public void onUpdate() {
         for (Node generatedCmp : le.generatedCmps) {
-            generatedCmp.setTranslateX(generatedCmp.getTranslateX() + difficultyMultiplier);
+            generatedCmp.setTranslateX(generatedCmp.getTranslateX() + getDifficultyMultiplier());
         }
         
         for (int i = 0; i < le.generatedCmps.size(); i++) {
@@ -213,12 +235,16 @@ public class GameController extends GameLoop {
         if (upd > 160) {
             if (Math.random() < 0.23) {
                 String actualLetter = generateLetterToPush();
-                le.generatedCmps.add(spawnCmp(actualLetter));
-                logger.trace("Enemy added with letter {}", actualLetter);
-                le.generatedLetterToCmps.add(actualLetter);
-                upd = 0;
+//                le.generatedCmps.add(spawnCmp(actualLetter));
+            addToListst(actualLetter);
+            logger.trace("Enemy added with letter {}", actualLetter);
+//                le.generatedLetterToCmps.add(actualLetter);
+            upd = 0;
             }
         }
+        
+        
+        
         //Number Of enemies
         Integer numberOfEnemies = le.generatedCmps.size();
         
@@ -250,7 +276,7 @@ public class GameController extends GameLoop {
         
         if (getScore() % 5 == 0 && getScore() != 0) //WINDOWS - difficultyMultiplier = 0.01, LINUX =0.001
         {
-            setDifficultyMultiplier(difficultyMultiplier + 0.0001);
+            setDifficultyMultiplier(getDifficultyMultiplier() + 0.0001);
         }
     }
     

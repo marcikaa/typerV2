@@ -21,12 +21,18 @@ public class CheckStateOfGame extends GameLoop {
      * ezzel jelezve a játék végét.
      * @param misses a félrenyomott karakterek száma
      * @param lives hátralévő életeink száma
+     * @return csak a teszt kedvéért
      */
-    public void isGameOver(int misses, int lives) {
-        if (misses > 9 || lives == 0) {
+    public boolean isGameOver(int misses, int lives) {
+        if (misses > 9 || misses < 0 || lives == 0) {
             isGameOver = true;
-        } else isGameOver = false;
+            return true;
+        } else {
+            isGameOver = false;
+            return false;
+        }
     }
+    
 
     /**
      * A játék megállításáért felelős metódus.

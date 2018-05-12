@@ -113,16 +113,18 @@ public class ScoreController implements Initializable {
         }
         
         TableColumn nameCol  = new TableColumn("Name");
-        nameCol.setMinWidth(320);
-        nameCol.setMaxWidth(320);
+        nameCol.setMinWidth(325);
+        nameCol.setMaxWidth(325);
         nameCol.setCellFactory(TextFieldTableCell.forTableColumn());
         nameCol.setCellValueFactory(new PropertyValueFactory<Result, String>("name"));
+        nameCol.setSortable(false);
         
         TableColumn scoreCol  = new TableColumn("Score");
-        scoreCol.setMinWidth(320);
-        scoreCol.setMaxWidth(320);
+        scoreCol.setMinWidth(325);
+        scoreCol.setMaxWidth(325);
         scoreCol.setCellFactory(TextFieldTableCell.forTableColumn());
         scoreCol.setCellValueFactory(new PropertyValueFactory<Result, Integer>("score"));
+        scoreCol.setSortable(false);
         table.getColumns().addAll(nameCol,scoreCol);
         table.setItems(results);
         

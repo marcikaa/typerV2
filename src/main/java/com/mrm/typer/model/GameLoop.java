@@ -12,7 +12,7 @@ public class GameLoop extends MainMenuController {
     /**
      * Gyorsaság mértéke.
      */
-    public double difficultyMultiplier = 0.5;
+    private double difficultyMultiplier = 0.5;
     
     /**
      * Gyorsaság mértékének beállítása.
@@ -20,6 +20,14 @@ public class GameLoop extends MainMenuController {
      */
     public void setDifficultyMultiplier(double difficultyMultiplier) {
         this.difficultyMultiplier = difficultyMultiplier;
+    }
+
+    /**
+     * Gyorsaság mértékének lekérése.
+     * @return {@code double} néhézség mértéke
+     */
+    public double getDifficultyMultiplier() {
+        return difficultyMultiplier;
     }
     
     /**

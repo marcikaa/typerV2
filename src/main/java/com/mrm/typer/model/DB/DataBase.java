@@ -69,35 +69,43 @@ public class DataBase {
         return em != null && em.isOpen();
     }
     
-    /**
-     * Entitás mentése.
-     * @param entity menteni kívánt entitás
+  /**
+     * @param entity menteni kíván entitás
+     *
+     * @return mentett entitás (nem lenne feltétlenül szükséges, lehetne akár
+     * void is, viszont hibaellenőrzéshez tök jó szerintem)
+     *
+     * @throws IllegalStateException ha nincs adatbázis-kapcsolat
+     * @throws IllegalArgumentException ha a menteni kívánt film címe
+     * érvénytelen ({@code null})
+     * @throws Exception JPA hiba esetén
      */
-    public void save(JPAEntity entity) {
-        
+    public JPAEntity save(JPAEntity entity) throws IllegalStateException, IllegalArgumentException, Exception {
+
         if (!connected()) {
-            logger.error("Nincs adatbáziskapcsolat");
+            throw new IllegalStateException("Nincs adatbázis-kapcsolat!");
         }
-        
+
         if (entity == null) {
-            logger.error("Nem megfelelő entitás");
+            throw new IllegalArgumentException("A mentendő entitás null!");
         }
-        
+
         try {
             em.getTransaction().begin();
-            
+
             if (entity.getId() == null) {
-                em.persist(entity);
+                em.persist(entity);  //új entitás --> persist (insert)
             } else {
-                em.merge(entity);
+                em.merge(entity);    //módosítás --> merge (update)
             }
-            
+
             em.getTransaction().commit();
-            
-            
+
+            return entity;
         } catch (PersistenceException e) {
-            
-            logger.error("JPA lekérdezési hiba!" + e);
+
+            log.error("JPA lekérdezési hiba!");
+            throw new Exception("JPA hiba!", e);
         }
     }
     
