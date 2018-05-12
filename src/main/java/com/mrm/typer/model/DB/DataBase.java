@@ -94,9 +94,9 @@ public class DataBase {
             em.getTransaction().begin();
 
             if (entity.getId() == null) {
-                em.persist(entity);  //új entitás --> persist (insert)
+                em.persist(entity);  
             } else {
-                em.merge(entity);    //módosítás --> merge (update)
+                em.merge(entity);
             }
 
             em.getTransaction().commit();

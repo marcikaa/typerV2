@@ -37,9 +37,7 @@ public class GameControllerTest {
         Double[] expected = new Double[] {0.0,0.5};
         Double[] real = new Double[] {(double)gc.getScore(),gc.getDifficultyMultiplier()};
         assertArrayEquals(expected,real);
-    }
-
-    
+    }   
     
     
     

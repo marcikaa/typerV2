@@ -145,9 +145,15 @@ public class GameController extends GameLoop {
      *Hozzáadja a listához az ellenfeleket.
      * @param al betű ami az adott ellenfelen lesz
      */
-    public void addToListst(String al){
-        le.generatedCmps.add(spawnCmp(al));
-        le.generatedLetterToCmps.add(al);
+    public int addToListst(String al){
+        if (al != null) {
+            le.generatedCmps.add(spawnCmp(al));
+            le.generatedLetterToCmps.add(al);
+            logger.info("Sikeresen hozzáadva a listához!");
+            return 1;
+            
+        }else
+        return -1;
     }
     
     /**
@@ -163,7 +169,7 @@ public class GameController extends GameLoop {
     
     
     /**
-     * Hozzáad egy "ellenséget", rajta egy betűvel.
+     * Hozzáad egy ellenfelet, rajta egy betűvel.
      *
      * @param letterToPush {@code Lettergenerator} generál egy véletlen betűt a
      * {W,A,S,D} halmazból.
@@ -176,11 +182,7 @@ public class GameController extends GameLoop {
         
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.rgb(0, 100, 0));
-//        initPic();
-//        Image image = new Image(getClass().getClassLoader().getResource("textures/cmp_alive.png").toString(), false);
-//        ImageView imageView = new ImageView();
-//        imageView.setImage(image);
-
+        
 //Hozzáad egy betűt a képhez
 Label letter = new Label(letterToPush);
 letter.setFont(Font.font(30));
@@ -235,11 +237,9 @@ return stackPane;
         if (upd > 160) {
             if (Math.random() < 0.23) {
                 String actualLetter = generateLetterToPush();
-//                le.generatedCmps.add(spawnCmp(actualLetter));
-            addToListst(actualLetter);
-            logger.trace("Enemy added with letter {}", actualLetter);
-//                le.generatedLetterToCmps.add(actualLetter);
-            upd = 0;
+                addToListst(actualLetter);
+                logger.trace("Enemy added with letter {}", actualLetter);
+                upd = 0;
             }
         }
         
