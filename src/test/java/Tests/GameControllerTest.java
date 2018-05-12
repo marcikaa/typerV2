@@ -39,6 +39,11 @@ public class GameControllerTest {
         assertArrayEquals(expected,real);
     }   
     
+    @Test
+    public void spawnCmpTest(){
+        assertNotNull(gc.spawnCmp("s"));
+    
+    }
     
     
 }

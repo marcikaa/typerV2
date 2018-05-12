@@ -46,7 +46,7 @@ public class DataBaseTest {
     public void a_saveTest() throws IllegalArgumentException, Exception{
         
         entity.setPlayerName("TESZT1");
-        entity.setScore(1444);
+        entity.setScore(1445);
         JPAEntity savedEntity = db.save(entity);
         assertNotNull(savedEntity);
         assertNotNull(savedEntity.getId());
@@ -76,11 +76,13 @@ public class DataBaseTest {
     
     @Test
     public void e_deleteTest() throws IllegalArgumentException, Exception{
-        List<JPAEntity> all = db.getAllOrderedByScore();
-        JPAEntity toDelete = all.get(0);
-        Integer highScore = toDelete.getScore();
-        db.delete(toDelete);
-        assertEquals(highScore, all.get(0).getScore());
+        List<JPAEntity> all = db.findPlayerByName("TESZT1");
+        assertNotNull(all);
+        for(JPAEntity e : all){
+        db.delete(e);
+        }
+        
+        
         
     }
     

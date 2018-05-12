@@ -145,15 +145,12 @@ public class GameController extends GameLoop {
      *Hozzáadja a listához az ellenfeleket.
      * @param al betű ami az adott ellenfelen lesz
      */
-    public int addToListst(String al){
+    public void addToListst(String al){
         if (al != null) {
             le.generatedCmps.add(spawnCmp(al));
             le.generatedLetterToCmps.add(al);
             logger.info("Sikeresen hozzáadva a listához!");
-            return 1;
-            
-        }else
-        return -1;
+        }
     }
     
     /**
