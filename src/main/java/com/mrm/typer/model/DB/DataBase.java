@@ -100,7 +100,7 @@ public class DataBase {
             return entity;
         } catch (PersistenceException e) {
             
-            log.error("JPA lekérdezési hiba!");
+            logger.error("JPA lekérdezési hiba!");
             throw new Exception("JPA hiba!"+ e);
         }
     }
