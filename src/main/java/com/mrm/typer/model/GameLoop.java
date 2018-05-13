@@ -46,8 +46,8 @@ public class GameLoop extends MainMenuController {
     private Integer livesLeft = 10;
     
     /**
-     *Visszaadja a pontjaink számát String-ként.
-     * @return a pontjaink száma String-ként
+     *Visszaadja a pontjaink számát {@code String}-ként.
+     * @return a pontjaink száma {@code String}-ként
      */
     public String getScoreString() {
         return score.toString();
@@ -56,7 +56,7 @@ public class GameLoop extends MainMenuController {
     
     /**
      * Visszadja a pontjaink számát.
-     * @return a pontjaink száma Integer-ként
+     * @return a pontjaink száma {@code Integer}-ként
      */
     public Integer getScore() {
         return score;
@@ -64,15 +64,15 @@ public class GameLoop extends MainMenuController {
     
     /**
      * Visszaadja hány életünk maradt még.
-     * @return életünk száma Integer-ként
+     * @return életünk száma {@code Integer}-ként
      */
     public Integer getLivesLeft() {
         return livesLeft;
     }
     
     /**
-     * Visszaadja hány életünk maradt még String-ként.
-     * @return életünk száma String-ként
+     * Visszaadja hány életünk maradt még {@code String}-ként.
+     * @return életünk száma {@code String}-ként
      */
     public String getLivesLeftString(){
         return livesLeft.toString();
@@ -80,7 +80,7 @@ public class GameLoop extends MainMenuController {
     
     /**
      * Megadhatjuk hány életünk legyen még.
-     * @param livesLeft Integer ami megadja az életeink számát
+     * @param livesLeft beállítáni kívánt élet
      */
     public void setLivesLeft(Integer livesLeft) {
         this.livesLeft = livesLeft;
@@ -88,7 +88,7 @@ public class GameLoop extends MainMenuController {
     
     /**
      * Megadhatjuk a pontjaink számát.
-     * @param score megadhatjuk a pontjaink számát int-ként
+     * @param score megadhatjuk a pontjaink számát {@code int}-ként
      */
     public void setScore(int score) {
         this.score = score;
@@ -102,15 +102,15 @@ public class GameLoop extends MainMenuController {
     
     /**
      * Visszaadja hány billentyűt tévesztettünk.
-     * @return visszaad egy intet a melléütések számáról
+     * @return visszaad egy {@code int}-et a melléütések számáról
      */
     public int getMissedKeyPresses() {
         return missedKeyPresses;
     }
     
     /**
-     * Visszaadja hány billentyűt tévesztettünk String-ként.
-     * @return visszaad egy Stringet a melléütések számáról
+     * Visszaadja hány billentyűt tévesztettünk {@code String}-ként.
+     * @return visszaad egy {@code String}-et a melléütések számáról
      */
     public String getMissedKeyPressesString() {
         
@@ -119,7 +119,7 @@ public class GameLoop extends MainMenuController {
     
     /**
      * Megadhatjuk hány melléütésünk legyen.
-     * @param missedKeyPresses egy int amivel megadjuk hányat hibáztunk.
+     * @param missedKeyPresses egy {@code int} amivel megadjuk hányat hibáztunk.
      */
     public void setMissedKeyPresses(int missedKeyPresses) {
         this.missedKeyPresses = missedKeyPresses;
