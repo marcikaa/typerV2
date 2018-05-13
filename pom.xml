@@ -54,20 +54,14 @@
         <maven.test.skip>false</maven.test.skip>
         <runfx.args>-jar "${project.build.directory}/${project.build.finalName}.jar"</runfx.args>
     </properties>
-
     <dependencies>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.7</version>
-        </dependency>
-
+        <!--Data annotacio,EqualsAndHash,Tostring-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.20</version>
         </dependency>
-
+        <!--LOG-->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -78,36 +72,31 @@
             <artifactId>slf4j-api</artifactId>
             <version>1.7.25</version>
         </dependency>
-
+        <!--LOG-->
+        <!--JPA-->
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>eclipselink</artifactId>
             <version>2.6.1</version>
         </dependency>
-
+        <!--Entitas Validitas-->
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <version>1.1.0.Final</version>
         </dependency>
-
+        <!--EmbeddedDerby-->
         <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
             <version>10.14.1.0</version>
         </dependency>
-
+        <!--Junit Test-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
-            <version>2.5.2</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -117,14 +106,6 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
-            </resource>
-
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.fxml</include>
-                    <include>**/*.css</include>
-                </includes>
             </resource>
 
             <resource>
@@ -148,7 +129,7 @@
                     </compilerArguments>
                 </configuration>
             </plugin>
-
+            <!--Java,Maven verzioszamok-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -170,7 +151,7 @@
                 </executions>
             </plugin>
 
-
+            <!--UberJar-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -194,6 +175,7 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--Teszt lefedettség-->
             <plugin> 
                 <groupId>org.jacoco</groupId> 
                 <artifactId>jacoco-maven-plugin</artifactId> 
@@ -234,12 +216,14 @@
 
 
     <reporting>
+        <!--Report-->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
                 <version>2.9</version>
             </plugin>
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
@@ -297,7 +281,7 @@
                     </reportSet>
                 </reportSets>
             </plugin>
-</plugins>
-</reporting>
+        </plugins>
+    </reporting>
 
 </project>

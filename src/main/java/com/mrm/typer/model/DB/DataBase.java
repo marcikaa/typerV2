@@ -1,15 +1,12 @@
 package com.mrm.typer.model.DB;
 
 import com.mrm.typer.model.entity.JPAEntity;
-import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
-import javax.persistence.Query;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
