@@ -11,6 +11,7 @@ This program is a simple game inspired by The Typing of the Dead.
 
 # Prerequisites
 - JDK 8
+- Maven
 - Minimum 1000x800 screen resolution
     
 # Installing
