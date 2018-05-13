@@ -28,10 +28,7 @@ public class Result {
         this.name = name;
         this.score = score;
     }
-    
-    public Result() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
     
     
     /**

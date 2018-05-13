@@ -305,7 +305,6 @@ return stackPane;
             rootPane.getChildren().add(root);
             logger.info("MainMenu.fxml loaded");
         } catch (IOException e) {
-            e.printStackTrace();
             logger.error("Can't load MainMenu.fxml");
         }
     }

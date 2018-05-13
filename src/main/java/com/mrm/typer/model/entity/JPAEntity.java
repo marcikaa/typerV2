@@ -35,10 +35,6 @@ import lombok.ToString;
 @Table(name = "SCORES", schema = "databaseOfTyper")
 
 @NamedQueries({
-    @NamedQuery(name = "JPAEntity.findPlayerByID", query = "SELECT e FROM JPAEntity e WHERE e.id = :id ORDER BY e.score")
-    ,
-    @NamedQuery(name = "JPAEntity.findPlayerByName", query = "SELECT e FROM JPAEntity e WHERE LOWER(e.playerName) LIKE LOWER(:playerName) ORDER BY e.score")
-    ,
     @NamedQuery(name = "JPAEntity.getAllOrderedByScore", query = "SELECT e FROM JPAEntity e ORDER BY e.score DESC")
 })
 @Data //getterek és setterek
@@ -47,7 +43,7 @@ import lombok.ToString;
 public class JPAEntity implements Serializable {
 
     /**
-     * ID kötelező a JPA-hoz.
+     * Elsődleges kulcs.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)         
@@ -61,7 +57,7 @@ public class JPAEntity implements Serializable {
     private String playerName;
 
     /**
-     * Játékoshoz tartozó elért pontszám.
+     * Pontszám.
      */
     @Column(name = "SCORE")
     private Integer score;

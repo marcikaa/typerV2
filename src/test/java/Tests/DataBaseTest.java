@@ -2,6 +2,7 @@ package Tests;
 
 import com.mrm.typer.model.DB.DataBase;
 import com.mrm.typer.model.entity.JPAEntity;
+import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -39,52 +40,25 @@ public class DataBaseTest {
         db.connectDB();
     }
     
-    Long idd;
     JPAEntity entity = new JPAEntity();
     
     @Test
     public void a_saveTest() throws IllegalArgumentException, Exception{
         
-        entity.setPlayerName("TESZT1");
-        entity.setScore(1445);
+        entity.setPlayerName("Mukodik az Adatbazis");
+        entity.setScore(1);
         JPAEntity savedEntity = db.save(entity);
         assertNotNull(savedEntity);
         assertNotNull(savedEntity.getId());
-        idd = savedEntity.getId();
         assertNotNull(savedEntity.getPlayerName());
         assertNotNull(savedEntity.getScore());
         
     }
     
-//     @Test
-//    public void b_findByIDTest() throws Exception{
-//    JPAEntity byID = db.findPlayerByID(idd);
-//    assertNotNull(byID);
-//    }
-    
     @Test
-    public void c_findByNameTest() throws IllegalArgumentException, Exception{
-        List<JPAEntity> sameName = db.findPlayerByName("TESZT1");
-        assertNotNull(sameName);
-    }
-    
-    @Test
-    public void d_getAllOrderedByScoreTest(){
+    public void b_getAllOrderedByScoreTest(){
         List<JPAEntity> all = db.getAllOrderedByScore();
         assertNotNull(all);
     }
-    
-    @Test
-    public void e_deleteTest() throws IllegalArgumentException, Exception{
-        List<JPAEntity> all = db.findPlayerByName("TESZT1");
-        assertNotNull(all);
-        for(JPAEntity e : all){
-        db.delete(e);
-        }
-        
-        
-        
-    }
-    
     
 }
