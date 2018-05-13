@@ -95,7 +95,7 @@ public class GameLoop extends MainMenuController {
     }
     
     /**
-     * Ennek az a feladata, hogy az új ellenfél hozzáadásának sebességét állítja.
+     * Ennek az a feladata, hogy az új ellenfél hozzáadásának gyakoriságát állítja.
      * Bővebben {@link com.mrm.typer.controller.GameController#onUpdate() }
      */
     public Integer upd = 0;
