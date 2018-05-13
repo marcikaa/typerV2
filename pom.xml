@@ -11,11 +11,11 @@
 
     <name>Typer</name>
     <description>This game is inspired by the "Typing of the Dead".</description>
-    <url>https://github.com/</url>
+    <url>https://github.com/marcikaa/typerV2</url>
 
     <organization>
         <name>Márton Szabó</name>
-        <url>https://github.com</url>
+        <url>https://github.com/marcikaa/typerV2</url>
     </organization>
     <inceptionYear>2018</inceptionYear>
 
@@ -38,9 +38,9 @@
     </licenses>
     
     <scm>
-        <connection>scm:git:git@github.com:marcika/typerv2.git</connection>
-        <url>scm:git:git@github.com:marcika/typerv2.git</url>
-        <developerConnection>scm:git:git@github.com:marcika/typerv2.git</developerConnection>
+        <connection>scm:git:git@github.com:marcikaa/typerv2.git</connection>
+        <url>scm:git:git@github.com:marcikaa/typerv2.git</url>
+        <developerConnection>scm:git:git@github.com:marcikaa/typerv2.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
