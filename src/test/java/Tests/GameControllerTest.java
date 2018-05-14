@@ -25,7 +25,7 @@ import static org.junit.Assert.*;
 */
 
 /**
- * A {code GameController} osztályt tesztelő osztály.
+ * A {@code GameController} osztályt tesztelő osztály.
  * @author marcikaa
  */
 public class GameControllerTest {
