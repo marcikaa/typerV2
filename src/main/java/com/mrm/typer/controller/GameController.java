@@ -168,7 +168,7 @@ public class GameController extends GameLoop {
     /**
      * Hozzáad egy ellenfelet, rajta egy betűvel.
      *
-     * @param a node-on megjelenő betű
+     * @param letterToPush a node-on megjelenő betű
      * @return egy node-al tér vissza, ami tartalmaz egy képet és egy random
      * betűt
      */
