@@ -168,8 +168,7 @@ public class GameController extends GameLoop {
     /**
      * Hozzáad egy ellenfelet, rajta egy betűvel.
      *
-     * @param letterToPush {@code Lettergenerator} generál egy véletlen betűt a
-     * {W,A,S,D} halmazból.
+     * @param a node-on megjelenő betű
      * @return egy node-al tér vissza, ami tartalmaz egy képet és egy random
      * betűt
      */
