@@ -19,7 +19,7 @@ import static com.mrm.typer.model.LetterGenerator.generateLetterToPush;
 import org.junit.Test;
 
 /**
- *
+ * A {code LetterGenerator} osztályt tesztelő osztály.
  * @author marcikaa
  */
 public class LetterGeneratorTest {

@@ -21,7 +21,7 @@ import org.junit.Test;
 */
 
 /**
- *
+ * A {@code CheckStateOfGame} osztályt tesztelő osztály.
  * @author marcikaa
  */
 public class CheckStateOfGameTest {

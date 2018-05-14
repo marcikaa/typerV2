@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- *
+ * A JPA entitást tesztelő osztály.
  * @author marcikaa
  */
 public class TestJPAEntity {

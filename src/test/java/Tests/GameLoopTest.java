@@ -21,7 +21,7 @@ import org.junit.Test;
 */
 
 /**
- *
+ * A {@code GameLoop} osztályt tesztelő osztály.
  * @author marcikaa
  */
 public class GameLoopTest {

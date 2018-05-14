@@ -21,7 +21,7 @@ import org.junit.Test;
 */
 
 /**
- *
+ * A {@code Result} osztályt tesztelő osztály.
  * @author marcikaa
  */
 public class ResultTest {

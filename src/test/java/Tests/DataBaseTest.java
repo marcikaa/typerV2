@@ -26,7 +26,7 @@ import org.junit.runners.MethodSorters;
 */
 
 /**
- * Az adatbázis tesztelése
+ * Az adatbázis tesztelése.
  * @author marcikaa
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
