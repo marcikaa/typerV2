@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,6 +24,7 @@ import com.mrm.typer.model.ListOfEnemies;
 import java.io.IOException;
 
 import static com.mrm.typer.model.LetterGenerator.generateLetterToPush;
+
 import com.mrm.typer.model.entity.JPAEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +39,10 @@ public class GameController extends GameLoop {
     private static final DataBase DB = DataBase.getDbPeldany();
     private static Logger logger = LoggerFactory.getLogger(GameController.class);
     //CHECKSTYLE:ON
+
+    public boolean isLinux = false;
+    public boolean runningTimer = true;
+
     /**
      * Visszaadja az adott scene stage-ét.
      *
@@ -45,17 +51,34 @@ public class GameController extends GameLoop {
     public Stage rootStage() {
         return (Stage) mainPane1.getScene().getWindow();
     }
-    
+
+
     /**
      * Kezeli a lenyomott billentyűket.
      *
      * @param mainPane1 Megadhatjuk hogy melyik Pane-n kezelje a billentyűket.
      */
     public void setControl(AnchorPane mainPane1) {
-        
+
         rootStage().getScene().setOnKeyPressed((event) -> {
             if (!le.generatedCmps.isEmpty() && !checkStateOfGame.isGameOver) {
                 switch (event.getCode()) {
+                    case ESCAPE:
+                        if (runningTimer == true) {
+                            runningTimer = false;
+                            pausedPop.setVisible(true);
+                            bckPop.setVisible(true);
+                            timer.stop();
+                            break;
+                        } else {
+                            runningTimer = true;
+                            bckPop.setVisible(false);
+                            pausedPop.setVisible(false);
+                            timer.start();
+                            break;
+                        }
+
+
                     case W:
                         if (le.getFirst() == "w") {
                             le.remove();
@@ -95,76 +118,87 @@ public class GameController extends GameLoop {
                 }
                 logger.trace("{} is pressed", event.getCode());
             }
-            
+
         });
-        
+
     }
+
     //CHECKSTYLE:OFF
     ScoreController scoreController = new ScoreController();
     public ListOfEnemies le = new ListOfEnemies();
-    
+
     CheckStateOfGame checkStateOfGame = new CheckStateOfGame();
-    
+
     //FXML-begin
     @FXML
-            Button button_backtomain;
-    
+    Button button_backtomain;
+
     @FXML
-            Label label_GameOver;
-    
+    AnchorPane pausedPop;
+
     @FXML
-            Label ttc;
-    
+    Label label_GameOver;
+
     @FXML
-            AnchorPane rootPane;
-    
+    Label ttc;
+
     @FXML
-            Button btn_addCmp;
-    
+    AnchorPane rootPane;
+
     @FXML
-            AnchorPane anchorPane_popUp;
-    
+    Button btn_addCmp;
+
     @FXML
-            AnchorPane mainPane1;
-    
+    AnchorPane bckPop;
+
     @FXML
-            Label label_Missed;
-    
+    AnchorPane anchorPane_popUp;
+
     @FXML
-            Label label_Enemies;
-    
+    AnchorPane mainPane1;
+
     @FXML
-            Label label_Scores;
-    
+    Label label_Missed;
+
     @FXML
-            Label label_livesLeft;
+    Label label_Enemies;
+
+    @FXML
+    Label label_Scores;
+
+    @FXML
+    Label label_livesLeft;
+
+
     //FXML-end
     //CHECKSTYLE:ON
-    
+
     /**
-     *Hozzáadja a listához az ellenfeleket.
+     * Hozzáadja a listához az ellenfeleket.
+     *
      * @param al betű ami az adott ellenfelen lesz
      */
-    public void addToListst(String al){
+    public void addToListst(String al) {
         if (al != null) {
             le.generatedCmps.add(spawnCmp(al));
             le.generatedLetterToCmps.add(al);
             logger.info("Sikeresen hozzáadva a listához!");
         }
     }
-    
+
     /**
      * Betölti a képet.
+     *
      * @return imageview a képpel együtt
      */
-    public ImageView initPic(){
+    public ImageView initPic() {
         Image image = new Image(getClass().getClassLoader().getResource("textures/cmp_alive.png").toString(), false);
         ImageView imageView = new ImageView();
         imageView.setImage(image);
         return imageView;
     }
-    
-    
+
+
     /**
      * Hozzáad egy ellenfelet, rajta egy betűvel.
      *
@@ -175,38 +209,39 @@ public class GameController extends GameLoop {
     public Node spawnCmp(String letterToPush) {
         int randomMultiplier = (int) (Math.random() * 12) * 50;
         final Canvas canvas = new Canvas(50, 50);
-        
+
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.rgb(0, 100, 0));
-        
+
 //Hozzáad egy betűt a képhez
-Label letter = new Label(letterToPush);
-letter.setFont(Font.font(30));
-letter.setTranslateY(letter.getTranslateX() - 7);
-letter.setTextFill(Color.rgb(0, 255, 0));
+        Label letter = new Label(letterToPush);
+        letter.setFont(Font.font(30));
+        letter.setTranslateY(letter.getTranslateX() - 7);
+        letter.setTextFill(Color.rgb(0, 255, 0));
 
 //Hozzáad mindent a Pane-hez
-StackPane stackPane = new StackPane();
-stackPane.setPrefSize(50, 50);
-stackPane.getChildren().addAll(canvas, initPic(), letter);
-stackPane.setTranslateY(randomMultiplier);
+        StackPane stackPane = new StackPane();
+        stackPane.setPrefSize(50, 50);
+        stackPane.getChildren().addAll(canvas, initPic(), letter);
+        stackPane.setTranslateY(randomMultiplier);
 
 //Hozzáad mindent a mainPane1-hez
-mainPane1.getChildren().add(stackPane);
+        mainPane1.getChildren().add(stackPane);
 
-return stackPane;
+        return stackPane;
     }
-    
+
     /**
      * Egy időzítő ami minden képkockában meghívódik.
      */
     public AnimationTimer timer = new AnimationTimer() {
+
         @Override
         public void handle(long now) {
             onUpdate();
         }
     };
-    
+
     /**
      * Minden olyan dolgot tartalmaz, amit képkockánként frissíteni kell. A
      * timer-ben hívjuk meg.
@@ -215,7 +250,7 @@ return stackPane;
         for (Node generatedCmp : le.generatedCmps) {
             generatedCmp.setTranslateX(generatedCmp.getTranslateX() + getDifficultyMultiplier());
         }
-        
+
         for (int i = 0; i < le.generatedCmps.size(); i++) {
             if (i == 0) {
                 if (le.generatedCmps.get(0).getTranslateX() > 980) {
@@ -230,7 +265,7 @@ return stackPane;
             }
         }
         //WINDOWS - upd > 30, LINUX = 150
-        if (upd > 160) {
+        if (upd > os_UPD) {
             if (Math.random() < 0.23) {
                 String actualLetter = generateLetterToPush();
                 addToListst(actualLetter);
@@ -238,57 +273,61 @@ return stackPane;
                 upd = 0;
             }
         }
-        
-        
-        
+
+
         //Number Of enemies
         Integer numberOfEnemies = le.generatedCmps.size();
-        
+
         upd++;
         initalizeLabels(numberOfEnemies);
         checkStateOfGame.isGameOver(getMissedKeyPresses(), getLivesLeft());
-        
+
         if (checkStateOfGame.isGameOver == true) {
-            
+
             checkStateOfGame.endGame(timer, getScoreString(), nameOfPlayer);
             checkStateOfGame.printGameOver(label_GameOver, button_backtomain, nameOfPlayer);
-            
+
             //JPA mentés
             JPAEntity playerEntity = new JPAEntity();
             playerEntity.setPlayerName(nameOfPlayer);
             playerEntity.setScore(getScore());
-            
+
             try {
                 DB.save(playerEntity);
-                logger.info("Score saved " + nameOfPlayer+ ": " + getScoreString());
+                logger.info("Score saved " + nameOfPlayer + ": " + getScoreString());
             } catch (IllegalArgumentException e) {
                 logger.error("Couldn't save score" + e);
             } catch (Exception e) {
                 logger.error("Couldn't save score" + e);
             }
-            
+
             mainPane1.getChildren().clear();
         }
-        
+
         if (getScore() % 5 == 0 && getScore() != 0) //WINDOWS - difficultyMultiplier = 0.01, LINUX =0.001
         {
-            setDifficultyMultiplier(getDifficultyMultiplier() + 0.0001);
+            setDifficultyMultiplier(getDifficultyMultiplier() + getTranslateSpeed());//getTranslateSpeed()
         }
+
     }
-    
+
+
+    public void start1(){
+        mainPane1.getChildren().clear();
+        timer.start();
+        setControl(mainPane1);
+        logger.info("Game started");
+    }
     /**
      * Kattintásra elindítja a játékot.
      *
      * @param actionEvent Unused.
      */
     public void clickToStart(ActionEvent actionEvent) {
-        mainPane1.getChildren().clear();
-        timer.start();
-        setControl(mainPane1);
-        logger.info("Game started");
-        
+        start1();
+
     }
-    
+
     /**
      * Ez a metódus betölti a főmenüt.
      *
@@ -307,7 +346,7 @@ return stackPane;
             logger.error("Can't load MainMenu.fxml");
         }
     }
-    
+
     /**
      * Ez a metódus felel a játékos nevének beállításáért.
      *
@@ -316,7 +355,26 @@ return stackPane;
     public void setPlayerName(String nm) {
         nameOfPlayer = nm;
     }
-    
+
+
+    public void setOs(boolean checkB) {
+        if (checkB == true) {
+
+            logger.error("A CHECKBOX be volt nyomva ");
+            isLinux = true;
+            setDifficultyMultiplier(0.5); //ilyenkor a linuxos sebesség van
+            setTranslateSpeed(0.001);
+            os_UPD = 160;
+        }
+
+        if (checkB == false) {
+            logger.error("A CHECKBOX NEM volt nyomva ");
+            setTranslateSpeed(0.01);
+            isLinux = false;
+        }
+    }
+
+
     /**
      * Kiírja pillanatnyi életünket, képernyőn megjelent ellenséget, pontunkat
      * és a mellényomott karakterek számát.
@@ -329,5 +387,5 @@ return stackPane;
         label_Scores.setText(getScoreString()); //TODO
         label_Missed.setText(getMissedKeyPressesString() + "/10");
     }
-    
+
 }

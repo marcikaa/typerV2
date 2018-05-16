@@ -24,7 +24,8 @@ public class MainApp extends Application {
     private static final DataBase DB = DataBase.getDbPeldany();
     private static Logger logger = LoggerFactory.getLogger(MainApp.class);
     //CHECKSTYLE:ON
-    
+
+
     
     @Override
     public void start(Stage primaryStage) throws Exception {

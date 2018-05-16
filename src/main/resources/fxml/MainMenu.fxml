@@ -27,6 +27,7 @@
                         <Font size="34.0" />
                     </font>
                 </TextField>
+            <CheckBox fx:id="checkbox_os" layoutX="467.0" layoutY="257.0" mnemonicParsing="false" text="Linux" />
             </children>
         </AnchorPane>
         <AnchorPane fx:id="subPane" layoutY="700.0" maxHeight="100.0" maxWidth="1000.0" minHeight="100.0" minWidth="1000.0" prefHeight="100.0" prefWidth="1000.0">

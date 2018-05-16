@@ -76,5 +76,23 @@
         </Label>
         <Button fx:id="button_backtomain" layoutX="212.0" layoutY="459.0" mnemonicParsing="false" onAction="#backToMain" prefHeight="30.0" prefWidth="628.0" text="Back to mainmenu" visible="false" />
         <Button fx:id="button_backtomain" layoutX="200.0" layoutY="320.0" mnemonicParsing="false" onAction="#backToMain" prefHeight="30.0" prefWidth="628.0" text="Back to mainmenu" visible="false" />
+      <AnchorPane fx:id="pausedPop" prefHeight="120.0" prefWidth="250.0" translateX="375.0" translateY="254.0" visible="false">
+         <children>
+            <Label fx:id="pausedText" prefHeight="123.0" prefWidth="265.0" text="Paused..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <font>
+                  <Font size="50.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="bckPop" layoutX="375.0" layoutY="350.0" prefHeight="75.0" prefWidth="250.0" visible="false">
+         <children>
+            <Button fx:id="bck" mnemonicParsing="false" onAction="#backToMain" text="Back To Main" prefWidth="250">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>

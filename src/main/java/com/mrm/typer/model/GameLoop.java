@@ -12,7 +12,7 @@ public class GameLoop extends MainMenuController {
     /**
      * Gyorsaság mértéke.
      */
-    private double difficultyMultiplier = 0.5;
+    private double difficultyMultiplier = 2;
     
     /**
      * Gyorsaság mértékének beállítása.
@@ -44,7 +44,17 @@ public class GameLoop extends MainMenuController {
      * Mennyi életünk van még hátra.
      */
     private Integer livesLeft = 10;
-    
+
+    private double translateSpeed;
+
+    public double getTranslateSpeed() {
+        return translateSpeed;
+    }
+
+    public void setTranslateSpeed(double translateSpeed) {
+        this.translateSpeed = translateSpeed;
+    }
+
     /**
      *Visszaadja a pontjaink számát {@code String}-ként.
      * @return a pontjaink száma {@code String}-ként
@@ -99,7 +109,16 @@ public class GameLoop extends MainMenuController {
      * Bővebben {@link com.mrm.typer.controller.GameController#onUpdate() }
      */
     public Integer upd = 0;
-    
+    public Integer os_UPD = 30;
+
+    public Integer getUpd() {
+        return upd;
+    }
+
+    public void setUpd(Integer upd) {
+        this.upd = upd;
+    }
+
     /**
      * Visszaadja hány billentyűt tévesztettünk.
      * @return visszaad egy {@code int}-et a melléütések számáról
