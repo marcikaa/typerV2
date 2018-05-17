@@ -129,24 +129,8 @@ public class MainMenuController implements Initializable {
 
     //CHECKSTYLE:OFF
     public void initialize(URL location, ResourceBundle resources) {
-        setControl();
     }
 
-    private void setControl() {
-        rootPane.setOnKeyPressed(event -> {
-            switch (event.getCode()) {
-                case ENTER:
-                    newGame();
-                    break;
-                case ESCAPE:
-                    Stage stage = (Stage)btn_Exit.getScene().getWindow();
-                    stage.close();
-                    break;
-            }
-
-
-        });
-    }
 //CHECKSTYLE:ON
 
 

@@ -51,10 +51,15 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <additionalparam>-Xdoclint:none</additionalparam>
         <mainClass>com.mrm.typer.MainApp</mainClass>
-        <maven.test.skip>false</maven.test.skip>
+        <maven.test.skip>true</maven.test.skip>
         <runfx.args>-jar "${project.build.directory}/${project.build.finalName}.jar"</runfx.args>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0.2</version>
+        </dependency>
         <!--Data annotacio,EqualsAndHash,Tostring-->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -79,6 +84,13 @@
             <artifactId>eclipselink</artifactId>
             <version>2.6.1</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.eclipse.persistence</groupId>-->
+            <!--<artifactId>eclipselink</artifactId>-->
+            <!--<version>2.6.1</version>-->
+            <!--<scope>system</scope>-->
+            <!--<systemPath>C:/typerV2/src/main/resources/eclipselink-2.6.1-RC1.jar</systemPath>-->
+        <!--</dependency>-->
         <!--Entitas Validitas-->
         <dependency>
             <groupId>javax.validation</groupId>
@@ -114,10 +126,27 @@
                     <include>**/*.xml</include>
                 </includes>
             </resource>
+
+            <resource>
+                <directory>src/main/resources/META-INF</directory>
+                <targetPath>META-INF</targetPath>
+                <includes>
+                    <include>persistence.xml</include>
+                </includes>
+            </resource>
         </resources>
 
 
         <plugins>
+            <!--Creating a runnable .exe with java-->
+            <plugin>
+                <groupId>com.excelsiorjet</groupId>
+                <artifactId>excelsior-jet-maven-plugin</artifactId>
+                <version>1.1.2</version>
+                <configuration>
+                    <mainClass>com.mrm.typer.MainApp</mainClass>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -149,32 +178,60 @@
                         </configuration>
                     </execution>
                 </executions>
+
             </plugin>
 
-            <!--UberJar-->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.1.0</version>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>1.7.1</version>
                 <executions>
                     <execution>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
                         <phase>package</phase>
-                        <configuration>
-                            <archive>
-                                <manifest>
-                                    <mainClass>${mainClass}</mainClass>
-                                </manifest>
-                            </archive>
-                            <descriptorRefs>
-                                <descriptorRef>jar-with-dependencies</descriptorRef>
-                            </descriptorRefs>
-                        </configuration>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <shadedArtifactAttached>true</shadedArtifactAttached>
+                    <shadedClassifierName>shaded</shadedClassifierName>
+                    <transformers>
+                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                            <mainClass>com.mrm.typer.MainApp</mainClass>
+                        </transformer>
+                    </transformers>
+                </configuration>
             </plugin>
+
+         
+
+            <!--UberJar-->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-assembly-plugin</artifactId>-->
+                <!--<version>3.1.0</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<goals>-->
+                            <!--<goal>single</goal>-->
+                        <!--</goals>-->
+                        <!--<phase>package</phase>-->
+                        <!--<configuration>-->
+                            <!--<archive>-->
+                                <!--<manifest>-->
+                                    <!--<mainClass>${mainClass}</mainClass>-->
+                                <!--</manifest>-->
+                            <!--</archive>-->
+                            <!--<descriptorRefs>-->
+                                <!--<descriptorRef>jar-with-dependencies</descriptorRef>-->
+                            <!--</descriptorRefs>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
+
             <!--Teszt lefedettség-->
             <plugin> 
                 <groupId>org.jacoco</groupId> 
@@ -218,6 +275,7 @@
     <reporting>
         <!--Report-->
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
